@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 const root = fileURLToPath(new URL('..', import.meta.url))
 const pluginsRoot = join(root, 'plugins')
 const outputRoot = join(root, 'dist', 'gemini')
-const pluginNames = ['tempo-docs', 'tempo-wallet', 'mercator']
+const pluginNames = ['docs', 'tempo-wallet', 'mercator']
 
 rmSync(outputRoot, { force: true, recursive: true })
 

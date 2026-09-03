@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "xyz.tempo/tempo-docs",
+  "name": "xyz.tempo/docs",
   "title": "Tempo Docs",
   "description": "Search and read current Tempo developer documentation.",
   "version": "0.1.0",

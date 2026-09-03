@@ -1,5 +1,5 @@
 ---
-name: tempo-docs
+name: docs
 description: >
   Read Tempo documentation when building applications on Tempo, integrating
   Tempo into an app, reviewing Tempo code, or answering developer questions

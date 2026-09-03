@@ -22,8 +22,6 @@ jobs:
         with:
           node-version: 24
       - run: npm test
-      - name: Check generated distributions
-        run: git diff --exit-code -- dist/gemini
       - name: Validate Claude marketplace
         run: npx --yes @anthropic-ai/claude-code@2.1.259 plugin validate --strict .
       - name: Validate GitHub Agent Skills

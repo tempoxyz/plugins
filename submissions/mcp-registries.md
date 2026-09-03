@@ -4,7 +4,7 @@
 
 Prepared metadata:
 
-- `registry/tempo-docs/server.json`
+- `registry/docs/server.json`
 - `registry/mercator/server.json`
 
 Both use public Streamable HTTP endpoints. Before publishing, authenticate the
@@ -16,7 +16,7 @@ registry directory. The official registry is in preview.
 Publish hosted URLs after public-launch approval:
 
 ```bash
-smithery mcp publish "https://mcp.tempo.xyz" -n @tempoxyz/tempo-docs
+smithery mcp publish "https://mcp.tempo.xyz" -n @tempoxyz/docs
 smithery mcp publish "https://mercator.tempo.xyz/mcp/auth" -n @tempoxyz/mercator
 ```
 

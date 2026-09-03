@@ -5,17 +5,17 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const pluginNames = ['tempo-docs', 'tempo-wallet', 'mercator']
+const pluginNames = ['docs', 'tempo-wallet', 'mercator']
 const repository = 'https://github.com/tempoxyz/plugins'
 
 const readJson = (path) => JSON.parse(readFileSync(join(root, path), 'utf8'))
 
 test('Tempo Docs is the only OpenAI directory candidate', () => {
   const submission = readFileSync(
-    join(root, 'submissions/openai/tempo-docs.md'),
+    join(root, 'submissions/openai/docs.md'),
     'utf8',
   )
-  assert.match(submission, /Candidate: `tempo-docs`/)
+  assert.match(submission, /Candidate: `docs`/)
   assert.match(submission, /Excluded: `tempo-wallet`, `mercator`/)
 })
 
@@ -36,7 +36,7 @@ test('all Agent Plugin manifests use streamable HTTP when MCP is present', () =>
 
 test('Tempo Docs skill stays read-only', () => {
   const skill = readFileSync(
-    join(root, 'plugins/tempo-docs/skills/tempo-docs/SKILL.md'),
+    join(root, 'plugins/docs/skills/docs/SKILL.md'),
     'utf8',
   )
   assert.match(skill, /This plugin is read-only/)
@@ -78,7 +78,7 @@ test('generated Gemini extensions preserve names, versions, and remote MCP URLs'
 })
 
 test('MCP Registry records use HTTPS Streamable HTTP remotes', () => {
-  for (const name of ['tempo-docs', 'mercator']) {
+  for (const name of ['docs', 'mercator']) {
     const server = readJson(`registry/${name}/server.json`)
     assert.match(server.name, /^xyz\.tempo\//)
     assert.deepEqual(

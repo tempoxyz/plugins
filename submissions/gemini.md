@@ -10,7 +10,7 @@ Each `dist/gemini/<plugin>` directory has a root `gemini-extension.json` and its
 skills. Link one locally with:
 
 ```bash
-gemini extensions link dist/gemini/tempo-docs
+gemini extensions link dist/gemini/docs
 ```
 
 The public gallery requires one public GitHub repository per extension because

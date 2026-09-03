@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://tempo.xyz">
-    <img alt="Tempo" src="./plugins/tempo-docs/assets/favicon.svg" width="80" height="80">
+    <img alt="Tempo" src="./plugins/docs/assets/favicon.svg" width="80" height="80">
   </a>
 </p>
 
@@ -18,7 +18,7 @@ Official plugins for building on Tempo with AI agents and developer tools.
 
 | Plugin | Description |
 | --- | --- |
-| [`tempo-docs`](./plugins/tempo-docs) | Search and read Tempo documentation through the hosted MCP server. |
+| [`docs`](./plugins/docs) | Search and read Tempo documentation through the hosted MCP server. |
 | [`tempo-wallet`](./plugins/tempo-wallet) | Set up Tempo Wallet and make explicitly approved paid requests. |
 | [`mercator`](./plugins/mercator) | Discover, quote, and run paid API workflows. |
 
@@ -27,14 +27,14 @@ Official plugins for building on Tempo with AI agents and developer tools.
 ```sh
 # Codex
 codex plugin marketplace add tempoxyz/plugins
-codex plugin add tempo-docs@tempo
+codex plugin add docs@tempo
 
 # Claude Code
 claude plugin marketplace add tempoxyz/plugins
-claude plugin install tempo-docs@tempo
+claude plugin install docs@tempo
 
 # GitHub Agent Skills
-gh skill install tempoxyz/plugins tempo-docs
+gh skill install tempoxyz/plugins docs
 ```
 
 The repository also contains Cursor manifests and generated Gemini CLI
@@ -44,7 +44,7 @@ requirements.
 ## Development
 
 ```sh
-npm test          # Validate manifests, generated files, and repository policy
+npm test          # Validate manifests, distributions, and repository policy
 npm run test:mcp  # Smoke-test production MCP endpoints
 ```
 

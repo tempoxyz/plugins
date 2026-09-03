@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const names = ['tempo-docs', 'tempo-wallet', 'mercator']
+const names = ['docs', 'tempo-wallet', 'mercator']
 const repository = 'https://github.com/tempoxyz/plugins'
 const failures = []
 

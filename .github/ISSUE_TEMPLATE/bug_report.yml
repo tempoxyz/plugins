@@ -9,7 +9,7 @@ body:
     attributes:
       label: Plugin
       options:
-        - tempo-docs
+        - docs
         - tempo-wallet
         - mercator
         - Repository tooling

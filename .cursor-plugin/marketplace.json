@@ -8,8 +8,8 @@
   },
   "plugins": [
     {
-      "name": "tempo-docs",
-      "source": "plugins/tempo-docs",
+      "name": "docs",
+      "source": "plugins/docs",
       "description": "Read Tempo documentation and use its examples while building on Tempo.",
       "category": "Developer Tools",
       "tags": ["docs", "mcp", "payments", "tempo"]

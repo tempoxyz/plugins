@@ -9,9 +9,9 @@
   },
   "plugins": [
     {
-      "name": "tempo-docs",
+      "name": "docs",
       "description": "Read Tempo documentation and use its examples while building on Tempo.",
-      "source": "./plugins/tempo-docs",
+      "source": "./plugins/docs",
       "category": "development",
       "homepage": "https://docs.tempo.xyz/guide/using-tempo-with-ai"
     },

@@ -1,6 +1,6 @@
 # OpenAI submission: Tempo Docs
 
-- Candidate: `tempo-docs`
+- Candidate: `docs`
 - Excluded: `tempo-wallet`, `mercator`
 - Type: Skills plus MCP
 - MCP URL type: Universal

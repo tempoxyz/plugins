@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "tempo-docs",
+      "name": "docs",
       "source": {
         "source": "local",
-        "path": "./plugins/tempo-docs"
+        "path": "./plugins/docs"
       },
       "policy": {
         "installation": "AVAILABLE",

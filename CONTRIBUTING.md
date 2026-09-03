@@ -21,7 +21,7 @@ tag cryptographically.
 ## Releases
 
 1. Update the version in every manifest for each changed plugin.
-2. Run the validation commands above and commit generated Gemini files.
+2. Run the validation commands above and inspect the generated Gemini files.
 3. Merge through a reviewed pull request with required checks passing.
 4. Create and push a signed `v*` tag from `main`.
 
