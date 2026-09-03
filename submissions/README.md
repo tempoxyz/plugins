@@ -6,7 +6,7 @@ but are excluded from OpenAI review.
 
 | Channel | Prepared artifact | Private validation | Public launch step |
 |---|---|---|---|
-| OpenAI Plugins Directory | `submissions/openai/tempo-docs.md` | MCP and skill tests | Complete policy gap, scan tools, submit draft |
+| OpenAI Plugins Directory | `submissions/openai/tempo-docs.md` | MCP and skill tests | Deploy MCP fixes, complete policy gap, scan tools, submit draft |
 | Codex team marketplace | `.agents/plugins/marketplace.json` | Local/private GitHub install | Make repository public or configure team access |
 | Claude Code | `.claude-plugin/marketplace.json` | `claude plugin validate .` | Submit at `platform.claude.com/plugins/submit` |
 | Cursor | `.cursor-plugin/marketplace.json` | Manifest and local import | Make repository public; submit repository URL |

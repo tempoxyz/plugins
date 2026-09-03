@@ -60,6 +60,9 @@ Expected result shape: concise prose or code plus source URLs from Tempo docs.
 
 ## Pre-submission blockers
 
+- Merge and deploy `tempoxyz/tempo-apps#1230`, then require
+  `npm run test:mcp` to pass. Production currently omits annotations from the
+  generated `code` tool.
 - Publish an MCP-specific privacy disclosure with concrete retention periods,
   or confirm the existing policy explicitly covers MCP prompts, tool inputs,
   retrieved documentation, logs, and feedback.

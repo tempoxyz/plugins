@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build:gemini": "node scripts/build-gemini.mjs",
-    "test": "node scripts/validate.mjs && node scripts/build-gemini.mjs && node --test"
+    "test": "node scripts/validate.mjs && node scripts/build-gemini.mjs && node --test",
+    "test:mcp": "node scripts/smoke-mcp.mjs"
   },
   "engines": {
     "node": ">=22"

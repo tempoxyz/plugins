@@ -42,6 +42,10 @@ gh skill install tempoxyz/plugins tempo-docs
 
 ```bash
 npm test
+npm run test:mcp
 ```
+
+The second command checks the production Tempo Docs tools and Mercator OAuth
+challenge. It requires internet access.
 
 Store-specific submission copy and checklists live in `submissions/`.
