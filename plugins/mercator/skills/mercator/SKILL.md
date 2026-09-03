@@ -45,9 +45,11 @@ fastest way to determine whether Mercator can complete the request.
    the unchanged quoted plan and the accepted `totalAmount` as `approved_total`. If the refreshed
    quote differs, no charge is made: quote again and ask the user to accept the new total. In an
    OAuth-connected host, Mercator charges the browser-authorized, policy-bounded wallet capability
-   and returns the job directly. Continue immediately; do not wait for the user to send a second
-   "approved" message. The agent host receives no wallet private key. Other clients complete payment
-   challenges through MCP metadata. If MCP submission and one retry both fail, a host that already
+   and returns the job directly. Connecting that wallet is standing authorization for autonomous
+   charges within its signed limits; no per-job wallet or browser confirmation follows. Continue
+   immediately; do not wait for the user to send a second "approved" message. The agent host receives
+   no wallet private key. Other clients complete payment challenges through MCP metadata. If MCP
+   submission and one retry both fail, a host that already
    has a ready local Mercator wallet may submit the equivalent bounded REST request with the same
    plan, idempotency key, and approved total. Never install, create, or connect a wallet for fallback.
 6. **Listen for completion.** Persist the returned `jobId` immediately; it is the only status and
