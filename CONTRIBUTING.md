@@ -1,7 +1,8 @@
 # Contributing
 
-Keep each plugin self-contained under `plugins/<name>`. Follow existing plugin
-structure and update every platform manifest when metadata or versions change.
+Keep each plugin self-contained under `plugins/<name>`. Update shared metadata
+in `manifest.config.ts`, then run `npm run build`. Do not edit generated JSON
+manifests directly.
 
 ## Pull requests
 
@@ -20,8 +21,8 @@ tag cryptographically.
 
 ## Releases
 
-1. Update the version in every manifest for each changed plugin.
-2. Run the validation commands above and inspect the generated Gemini files.
+1. Update the plugin version in `manifest.config.ts`.
+2. Run `npm run build`, then run the validation commands above and inspect the generated files.
 3. Merge through a pull request with required checks passing.
 4. Create and push a signed `v*` tag from `main`.
 

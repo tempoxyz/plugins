@@ -2,13 +2,23 @@
   "name": "mercator",
   "version": "0.3.1+codex.20260902183800",
   "description": "Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.",
-  "author": {
-    "name": "Tempo",
-    "url": "https://tempo.xyz/"
-  },
   "homepage": "https://mercator.tempo.xyz/",
   "repository": "https://github.com/tempoxyz/plugins",
-  "keywords": ["api", "current data", "mercator", "mcp", "paid services", "tempo"],
+  "license": "MIT",
+  "keywords": [
+    "api",
+    "current-data",
+    "mercator",
+    "mcp",
+    "paid-services",
+    "payments",
+    "tempo"
+  ],
+  "author": {
+    "name": "Tempo",
+    "email": "support@tempo.xyz",
+    "url": "https://tempo.xyz"
+  },
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
@@ -17,7 +27,11 @@
     "longDescription": "Connect agents to current data and paid APIs through one remote MCP server. Authorize a limited Tempo Wallet key once; no CLI or wallet key is installed in the agent VM.",
     "developerName": "Tempo",
     "category": "Productivity",
-    "capabilities": ["Interactive", "Read", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
     "websiteURL": "https://mercator.tempo.xyz/",
     "defaultPrompt": [
       "Rescue my canceled Boston-to-London flight under $1,200; add a hotel and transfer if needed, then email the itinerary.",

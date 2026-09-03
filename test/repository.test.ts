@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, test } from 'vitest'
+import { plugins } from '../manifest.config.ts'
 import { validateRepository } from '../scripts/validate.ts'
 
 type McpManifest = {
@@ -25,7 +26,8 @@ type RegistryManifest = {
 }
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const pluginNames = ['docs', 'wallet', 'mercator'] as const
+const pluginNames = plugins.map((plugin) => plugin.name)
+const mcpPluginNames = plugins.filter((plugin) => plugin.mcp).map((plugin) => plugin.name)
 const repository = 'https://github.com/tempoxyz/plugins'
 
 const readJson = <T>(filename: string): T =>
@@ -96,7 +98,7 @@ describe('repository validation', () => {
     }
   })
 
-  test.each(['docs', 'mercator'])('%s MCP Registry record uses HTTPS Streamable HTTP', (name) => {
+  test.each(mcpPluginNames)('%s MCP Registry record uses HTTPS Streamable HTTP', (name) => {
     const server = readJson<RegistryManifest>(`registry/${name}/server.json`)
     expect(server.name).toMatch(/^xyz\.tempo\//)
     expect(server.remotes.map((remote) => remote.type)).toEqual(['streamable-http'])
@@ -153,6 +155,7 @@ describe('repository validation', () => {
   test('release workflow verifies signed tags and packages the license', () => {
     const workflow = readFileSync(join(root, '.github/workflows/release.yml'), 'utf8')
     expect(workflow).toMatch(/\.verification\.verified/)
+    expect(workflow).toMatch(/npm run --silent list:plugins/)
     expect(workflow).toMatch(/cp LICENSE "dist\/native\/\$plugin\/LICENSE"/)
   })
 

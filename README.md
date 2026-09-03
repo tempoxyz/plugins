@@ -52,10 +52,12 @@ requirements.
 ## Development
 
 ```sh
-npm test          # Validate manifests, distributions, and repository policy
+npm run build     # Compile platform manifests and Gemini distributions
+npm test          # Validate generated files and repository policy
 npm run test:mcp  # Smoke-test production MCP endpoints
 ```
 
+Edit [`manifest.config.ts`](./manifest.config.ts), not generated JSON manifests.
 Repository tooling is TypeScript and tested with Vitest. The Mercator skill is
 generated from its private product repository; changes arrive here through a
 signed synchronization pull request.

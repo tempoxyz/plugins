@@ -4,9 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "npm run build:manifests && npm run build:gemini",
     "build:gemini": "tsx scripts/build-gemini.ts",
+    "build:manifests": "tsx scripts/build-manifests.ts",
+    "check:manifests": "tsx scripts/build-manifests.ts --check",
     "check:types": "tsc --noEmit",
-    "test": "npm run check:types && npm run build:gemini && vitest run",
+    "list:plugins": "tsx scripts/list-plugins.ts",
+    "test": "npm run check:types && npm run check:manifests && npm run build:gemini && vitest run",
     "test:mcp": "vitest run --config vitest.mcp.config.ts"
   },
   "engines": {

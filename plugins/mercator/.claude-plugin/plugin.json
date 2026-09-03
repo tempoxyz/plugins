@@ -10,7 +10,15 @@
   "homepage": "https://mercator.tempo.xyz/",
   "repository": "https://github.com/tempoxyz/plugins",
   "license": "MIT",
-  "keywords": ["api", "current-data", "mercator", "mcp", "paid-services", "tempo"],
-  "mcpServers": "./.mcp.json",
-  "skills": "./skills/"
+  "keywords": [
+    "api",
+    "current-data",
+    "mercator",
+    "mcp",
+    "paid-services",
+    "payments",
+    "tempo"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
 }
