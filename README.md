@@ -1,51 +1,61 @@
-# Tempo plugins
+<br>
 
-Official Tempo plugins for AI agents and developer tools.
+<p align="center">
+  <a href="https://tempo.xyz">
+    <img alt="Tempo" src="./plugins/tempo-docs/assets/favicon.svg" width="80" height="80">
+  </a>
+</p>
 
-| Plugin | Purpose | OpenAI directory candidate |
-|---|---|---|
-| `tempo-docs` | Read Tempo documentation through the hosted MCP server | Yes |
-| `tempo-wallet` | Set up Tempo Wallet and make approved paid requests | No |
-| `mercator` | Discover, quote, and run paid API workflows | No |
+<br>
 
-The plugins share one canonical payload and include adapters for Codex, Claude
-Code, Cursor, Agent Plugins, Gemini CLI, and GitHub Agent Skills.
+# Tempo Plugins
 
-## Install
+Official plugins for building on Tempo with AI agents and developer tools.
 
-### Codex
+[tempo.xyz/developers](https://tempo.xyz/developers)
 
-```bash
+## Plugins
+
+| Plugin | Description |
+| --- | --- |
+| [`tempo-docs`](./plugins/tempo-docs) | Search and read Tempo documentation through the hosted MCP server. |
+| [`tempo-wallet`](./plugins/tempo-wallet) | Set up Tempo Wallet and make explicitly approved paid requests. |
+| [`mercator`](./plugins/mercator) | Discover, quote, and run paid API workflows. |
+
+## Usage
+
+```sh
+# Codex
 codex plugin marketplace add tempoxyz/plugins
 codex plugin add tempo-docs@tempo
-```
 
-### Claude Code
-
-```bash
+# Claude Code
 claude plugin marketplace add tempoxyz/plugins
 claude plugin install tempo-docs@tempo
-```
 
-### Cursor
-
-Clone the repository and import the plugin from `plugins/tempo-docs` while the
-repository is private. Public marketplace submission uses the same directory.
-
-### GitHub Agent Skills
-
-```bash
+# GitHub Agent Skills
 gh skill install tempoxyz/plugins tempo-docs
 ```
 
-## Validate
+The repository also contains Cursor manifests and generated Gemini CLI
+extensions. See [`submissions`](./submissions) for platform-specific release
+requirements.
 
-```bash
-npm test
-npm run test:mcp
+## Development
+
+```sh
+npm test          # Validate manifests, generated files, and repository policy
+npm run test:mcp  # Smoke-test production MCP endpoints
 ```
 
-The second command checks the production Tempo Docs tools and Mercator OAuth
-challenge. It requires internet access.
+## Contributing
 
-Store-specific submission copy and checklists live in `submissions/`.
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
+## Security
+
+See [`SECURITY.md`](./SECURITY.md).
+
+## License
+
+Licensed under the [MIT License](./LICENSE).

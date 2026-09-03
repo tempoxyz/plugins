@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a problem with a Tempo plugin or its distribution.
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Plugin
+      options:
+        - tempo-docs
+        - tempo-wallet
+        - mercator
+        - Repository tooling
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: Host and version
+      placeholder: Tool name and version
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Include reproduction steps, expected behavior, and relevant logs.
+    validations:
+      required: true
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security check
+      options:
+        - label: This report contains no credentials, wallet material, or vulnerability details.
+          required: true

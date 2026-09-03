@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
@@ -109,4 +109,25 @@ test('release workflow verifies signed tags and packages the license', () => {
   )
   assert.match(workflow, /\.verification\.verified/)
   assert.match(workflow, /cp LICENSE "dist\/native\/\$plugin\/LICENSE"/)
+})
+
+test('workflows pin external actions to commit SHAs', () => {
+  const workflowRoot = join(root, '.github/workflows')
+  for (const name of readdirSync(workflowRoot)) {
+    const workflow = readFileSync(join(workflowRoot, name), 'utf8')
+    const uses = [...workflow.matchAll(/^\s*- uses: ([^\s]+)(?:\s+#.*)?$/gm)]
+    for (const [, reference] of uses) {
+      if (reference.startsWith('./')) continue
+      assert.match(reference, /@[0-9a-f]{40}$/, `${name}: ${reference}`)
+    }
+  }
+})
+
+test('automation workflows declare permissions and timeouts', () => {
+  const workflowRoot = join(root, '.github/workflows')
+  for (const name of readdirSync(workflowRoot)) {
+    const workflow = readFileSync(join(workflowRoot, name), 'utf8')
+    assert.match(workflow, /^permissions:/m, `${name}: missing permissions`)
+    assert.match(workflow, /^\s+timeout-minutes: \d+$/m, `${name}: missing timeout`)
+  }
 })
