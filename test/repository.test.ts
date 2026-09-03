@@ -25,7 +25,7 @@ type RegistryManifest = {
 }
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const pluginNames = ['docs', 'tempo-wallet', 'mercator'] as const
+const pluginNames = ['docs', 'wallet', 'mercator'] as const
 const repository = 'https://github.com/tempoxyz/plugins'
 
 const readJson = <T>(filename: string): T =>
@@ -39,7 +39,7 @@ describe('repository validation', () => {
   test('Tempo Docs is the only OpenAI directory candidate', () => {
     const submission = readFileSync(join(root, 'submissions/openai/docs.md'), 'utf8')
     expect(submission).toMatch(/Candidate: `docs`/)
-    expect(submission).toMatch(/Excluded: `tempo-wallet`, `mercator`/)
+    expect(submission).toMatch(/Excluded: `wallet`, `mercator`/)
   })
 
   test.each(pluginNames)('%s uses streamable HTTP when MCP is present', (name) => {
@@ -54,7 +54,7 @@ describe('repository validation', () => {
       if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT')) {
         throw error
       }
-      expect(filename.endsWith('tempo-wallet/mcp.json')).toBe(true)
+      expect(filename.endsWith('wallet/mcp.json')).toBe(true)
     }
   })
 
@@ -105,7 +105,7 @@ describe('repository validation', () => {
 
   test('wallet requests require a quote and explicit approval', () => {
     const skill = readFileSync(
-      join(root, 'plugins/tempo-wallet/skills/tempo-wallet/SKILL.md'),
+      join(root, 'plugins/wallet/skills/wallet/SKILL.md'),
       'utf8',
     )
     const quote = skill.indexOf('request -t --dry-run')
@@ -118,7 +118,7 @@ describe('repository validation', () => {
 
   test('current Tempo mark is used consistently', () => {
     const expectedHash = '1537798eaacb5c87ad4876caf4538edee25cc5843939b3edce04474f0bf9dd4a'
-    for (const name of ['docs', 'tempo-wallet']) {
+    for (const name of ['docs', 'wallet']) {
       const asset = readFileSync(join(root, `plugins/${name}/assets/tempo-mark.svg`))
       expect(createHash('sha256').update(asset).digest('hex'), name).toBe(expectedHash)
     }

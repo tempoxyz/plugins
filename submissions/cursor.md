@@ -8,6 +8,6 @@ Checklist:
 - `.cursor-plugin/marketplace.json` lists unique plugin names.
 - Each plugin has `.cursor-plugin/plugin.json`, a committed logo, README-level
   usage documentation, valid relative paths, and no undeclared variables.
-- Submit `docs` first. Review `tempo-wallet` and `mercator` separately
+- Submit `docs` first. Review `wallet` and `mercator` separately
   because they can install software, authenticate, pay, and change external
   state.

@@ -24,7 +24,7 @@ Official plugins for building on Tempo with AI agents and developer tools. Insta
 | Plugin | Description |
 | --- | --- |
 | [`docs`](./plugins/docs) | Search and read Tempo documentation through the hosted MCP server. |
-| [`tempo-wallet`](./plugins/tempo-wallet) | Set up Tempo Wallet and make explicitly approved paid requests. |
+| [`wallet`](./plugins/wallet) | Set up Tempo Wallet and make explicitly approved paid requests. |
 | [`mercator`](./plugins/mercator) | Discover, quote, and run paid API workflows. |
 
 ## Usage
@@ -33,13 +33,16 @@ Official plugins for building on Tempo with AI agents and developer tools. Insta
 # Codex
 codex plugin marketplace add tempoxyz/plugins
 codex plugin add docs@tempo
+codex plugin add wallet@tempo
 
 # Claude Code
 claude plugin marketplace add tempoxyz/plugins
 claude plugin install docs@tempo
+claude plugin install wallet@tempo
 
 # GitHub Agent Skills
 gh skill install tempoxyz/plugins docs
+gh skill install tempoxyz/plugins wallet
 ```
 
 The repository also contains Cursor manifests and generated Gemini CLI

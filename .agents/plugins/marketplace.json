@@ -17,10 +17,10 @@
       "category": "Developer Tools"
     },
     {
-      "name": "tempo-wallet",
+      "name": "wallet",
       "source": {
         "source": "local",
-        "path": "./plugins/tempo-wallet"
+        "path": "./plugins/wallet"
       },
       "policy": {
         "installation": "AVAILABLE",

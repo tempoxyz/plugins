@@ -15,8 +15,8 @@
       "tags": ["docs", "mcp", "payments", "tempo"]
     },
     {
-      "name": "tempo-wallet",
-      "source": "plugins/tempo-wallet",
+      "name": "wallet",
+      "source": "plugins/wallet",
       "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
       "category": "Finance",
       "tags": ["mpp", "payments", "tempo", "wallet"]
