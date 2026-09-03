@@ -52,9 +52,10 @@ requirements.
 ## Development
 
 ```sh
-npm run build     # Compile platform manifests and Gemini distributions
-npm test          # Validate generated files and repository policy
-npm run test:mcp  # Smoke-test production MCP endpoints
+npm run build        # Compile platform manifests and Gemini distributions
+npm run format:json  # Format JSON files
+npm test             # Validate generated files and repository policy
+npm run test:mcp     # Smoke-test production MCP endpoints
 ```
 
 Edit [`manifest.config.ts`](./manifest.config.ts), not generated JSON manifests.
