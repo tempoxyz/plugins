@@ -2,8 +2,9 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import test from 'node:test'
+import { fileURLToPath } from 'node:url'
 
-const root = new URL('..', import.meta.url).pathname
+const root = fileURLToPath(new URL('..', import.meta.url))
 const pluginNames = ['tempo-docs', 'tempo-wallet', 'mercator']
 const repository = 'https://github.com/tempoxyz/plugins'
 
@@ -86,4 +87,26 @@ test('MCP Registry records use HTTPS Streamable HTTP remotes', () => {
     )
     assert.match(server.remotes[0].url, /^https:\/\//)
   }
+})
+
+test('wallet requests require a quote and explicit approval', () => {
+  const skill = readFileSync(
+    join(root, 'plugins/tempo-wallet/skills/tempo-wallet/SKILL.md'),
+    'utf8',
+  )
+  const quote = skill.indexOf('request -t --dry-run')
+  const approval = skill.indexOf('wait for explicit approval')
+  const execution = skill.indexOf('request -t -X POST')
+  assert.ok(quote >= 0)
+  assert.ok(approval > quote)
+  assert.ok(execution > approval)
+})
+
+test('release workflow verifies signed tags and packages the license', () => {
+  const workflow = readFileSync(
+    join(root, '.github/workflows/release.yml'),
+    'utf8',
+  )
+  assert.match(workflow, /\.verification\.verified/)
+  assert.match(workflow, /cp LICENSE "dist\/native\/\$plugin\/LICENSE"/)
 })

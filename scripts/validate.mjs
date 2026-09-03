@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const root = new URL('..', import.meta.url).pathname
+const root = fileURLToPath(new URL('..', import.meta.url))
 const names = ['tempo-docs', 'tempo-wallet', 'mercator']
 const repository = 'https://github.com/tempoxyz/plugins'
 const failures = []
@@ -60,8 +61,13 @@ for (const name of names) {
   if (portable && cursor && portable.version !== cursor.version) {
     failures.push(`${pluginRoot}: portable and Cursor versions differ`)
   }
-  if (portable && codex && !codex.version.startsWith(portable.version)) {
-    failures.push(`${pluginRoot}: Codex version must start with portable version`)
+  if (
+    portable &&
+    codex &&
+    codex.version !== portable.version &&
+    !codex.version.startsWith(`${portable.version}+`)
+  ) {
+    failures.push(`${pluginRoot}: Codex version must match portable version`)
   }
 }
 

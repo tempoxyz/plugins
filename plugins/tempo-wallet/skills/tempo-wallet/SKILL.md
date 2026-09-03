@@ -39,16 +39,16 @@ Run these commands in order. Do not skip steps. Do not search for other install 
 
 Provide:
 
-- Installation location and version (`$HOME/.tempo/bin/tempo --version`).
-- Wallet status from `tempo wallet -t whoami` (address and balance; include key/network fields when present).
-- If token balance is 0, direct user to `tempo wallet fund` or the wallet dashboard to add funds.
-- To check MPP Credits separately, run `tempo wallet -t whoami --credits`.
+- Installation location and version (`"$HOME/.tempo/bin/tempo" --version`).
+- Wallet status from `"$HOME/.tempo/bin/tempo" wallet -t whoami` (address and balance; include key/network fields when present).
+- If token balance is 0, direct user to `"$HOME/.tempo/bin/tempo" wallet fund` or the wallet dashboard to add funds.
+- To check MPP Credits separately, run `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits`.
 - 2-3 simple starter prompts tailored to currently available services.
 
 To generate starter prompts, list available services and pick useful beginner examples:
 
 ```bash
-tempo wallet -t services --search ai
+"$HOME/.tempo/bin/tempo" wallet -t services --search ai
 ```
 
 Starter prompts should be user-facing tasks (not command templates), for example:
@@ -61,43 +61,50 @@ Starter prompts should be user-facing tasks (not command templates), for example
 ## Use Services
 
 ```bash
-tempo wallet -t whoami
-tempo wallet -t services --search <query>
-tempo wallet -t services <SERVICE_ID>
-tempo request -t -X POST --json '{"input":"..."}' <SERVICE_URL>/<ENDPOINT_PATH>
+"$HOME/.tempo/bin/tempo" wallet -t whoami
+"$HOME/.tempo/bin/tempo" wallet -t services --search <query>
+"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>
 ```
 
 - Select `SERVICE_ID` from search results that best matches user intent. When multiple match: prefer best semantic fit, then endpoint fit, then pricing clarity, then first in list.
-- **Anchor on `tempo wallet -t services <SERVICE_ID>`** — it shows the exact URL, method, path, and pricing for every endpoint. Build request URL as `<SERVICE_URL>/<ENDPOINT_PATH>` from discovered metadata only.
-- If service details include `supportsCredits: true`, MPP Credits may be used for one-time `tempo.charge` payments. Credits are separate from token balances; check them with `tempo wallet -t whoami --credits` and buy them with `tempo wallet fund --credits`.
+- **Anchor on `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>`** — it shows the exact URL, method, path, and pricing for every endpoint. Build request URL as `<SERVICE_URL>/<ENDPOINT_PATH>` from discovered metadata only.
+- If service details include `supportsCredits: true`, MPP Credits may be used for one-time `tempo.charge` payments. Credits are separate from token balances; check them with `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits` and buy them with `"$HOME/.tempo/bin/tempo" wallet fund --credits`.
 - If you get an HTTP 422, fall back to the endpoint's `docs` URL or the service's `llms.txt` for exact field names.
 - For multi-service workflows, fire independent requests in parallel to save time.
 
 ### Request Templates
 
 ```bash
-# JSON POST
-tempo request -t --dry-run -X POST --json '{"input":"..."}' <SERVICE_URL>/<ENDPOINT_PATH>
-tempo request -t -X POST --json '{"input":"..."}' <SERVICE_URL>/<ENDPOINT_PATH>
+# Quote JSON POST
+"$HOME/.tempo/bin/tempo" request -t --dry-run -X POST --json '{"input":"..."}' <SERVICE_URL>/<ENDPOINT_PATH>
 
-# GET
-tempo request -t -X GET <SERVICE_URL>/<ENDPOINT_PATH>
+# Quote GET
+"$HOME/.tempo/bin/tempo" request -t --dry-run -X GET <SERVICE_URL>/<ENDPOINT_PATH>
+```
+
+Present the dry-run price and wait for explicit approval before making a paid
+request, unless the user already supplied a budget that covers it. Then run the
+matching request without `--dry-run`:
+
+```bash
+"$HOME/.tempo/bin/tempo" request -t -X POST --json '{"input":"..."}' <SERVICE_URL>/<ENDPOINT_PATH>
+"$HOME/.tempo/bin/tempo" request -t -X GET <SERVICE_URL>/<ENDPOINT_PATH>
 ```
 
 ### Response Handling
 
 - Return result payload to user directly when request succeeds.
 - If response contains a file URL (e.g., image generation), download it locally: `curl -fsSL "<url>" -o <filename>`.
-- If response is a usage/auth readiness error, run `tempo wallet login` and retry once.
-- If response indicates payment/funding limit issues, report clearly and stop. For token funding use `tempo wallet fund`; for MPP Credits use `tempo wallet fund --credits` only when service details show `supportsCredits: true`.
-- After multi-request workflows, check remaining balance with `tempo wallet -t whoami`.
+- If response is a usage/auth readiness error, run `"$HOME/.tempo/bin/tempo" wallet login` and retry once.
+- If response indicates payment/funding limit issues, report clearly and stop. For token funding use `"$HOME/.tempo/bin/tempo" wallet fund`; for MPP Credits use `"$HOME/.tempo/bin/tempo" wallet fund --credits` only when service details show `supportsCredits: true`.
+- After multi-request workflows, check remaining balance with `"$HOME/.tempo/bin/tempo" wallet -t whoami`.
 
 ### Rules
 
 - Always discover URL/path before request; never guess endpoint paths.
-- `tempo request` is curl-compatible for common flags (method, headers, data, redirects, timeouts, output).
-- Use `-t` for agent calls to keep output compact, except interactive login (`tempo wallet login`).
-- Use `--dry-run` before potentially expensive requests.
+- `"$HOME/.tempo/bin/tempo" request` is curl-compatible for common flags (method, headers, data, redirects, timeouts, output).
+- Use `-t` for agent calls to keep output compact, except interactive login (`"$HOME/.tempo/bin/tempo" wallet login`).
+- Use `--dry-run`, show the price, and obtain approval before potentially expensive requests.
 - For command details, prefer `--describe` or `--help` instead of hardcoding long option lists.
 
 ## Common Issues
@@ -105,15 +112,15 @@ tempo request -t -X GET <SERVICE_URL>/<ENDPOINT_PATH>
 | Issue | Cause | Fix |
 |---|---|---|
 | `tempo: command not found` | CLI not installed | Run `curl -fsSL https://tempo.xyz/install \| bash`, then retry using `"$HOME/.tempo/bin/tempo" ...`. |
-| "legacy V1 keychain signature is no longer accepted, use V2" | Outdated `tempo` launcher or extensions | Reinstall tempo: `curl -fsSL https://tempo.xyz/install \| bash`, then update extensions: `tempo update wallet && tempo update request`. Log out and back in: `tempo wallet logout --yes && tempo wallet login`. |
-| "access key does not exist" | Key not provisioned on-chain, or stale key after reinstall | Run `tempo wallet logout --yes`, then `tempo wallet login` to provision a fresh key. |
-| `ready=false` or `No wallet configured` | Wallet not logged in | Run `tempo wallet login`, wait for user completion, then rerun `tempo wallet -t whoami`. |
-| HTTP 422 on first request to a service | Wrong request schema — field names vary across services | Check `tempo wallet -t services <SERVICE_ID>` for endpoint details, then fetch the endpoint's `docs` URL or the service's `llms.txt` for exact field names and types. |
-| Balance is 0, insufficient funds, or spending limit exceeded | Wallet needs funding or limit hit | Run `tempo wallet fund` or direct user to the wallet dashboard. Report clearly and stop if limit is exceeded. |
-| Token balance is 0 but MPP Credits may be available | Credits are separate from token balances | Run `tempo wallet -t whoami --credits`. If the service shows `supportsCredits: true`, credits can be used for one-time charge payments. |
-| Need to buy MPP Credits | User wants to fund with card-based credits for eligible services | Run `tempo wallet fund --credits`, complete checkout in the wallet app, then recheck with `tempo wallet -t whoami --credits`. |
-| Credits are not accepted by a service | MPP Credits only work for eligible Tempo-proxied services | Inspect `tempo wallet -t services <SERVICE_ID>` and use credits only when `supportsCredits: true` is present. Otherwise use token funding with `tempo wallet fund`. |
+| "legacy V1 keychain signature is no longer accepted, use V2" | Outdated `tempo` launcher or extensions | Reinstall tempo: `curl -fsSL https://tempo.xyz/install \| bash`, then update extensions: `"$HOME/.tempo/bin/tempo" update wallet && "$HOME/.tempo/bin/tempo" update request`. Log out and back in: `"$HOME/.tempo/bin/tempo" wallet logout --yes && "$HOME/.tempo/bin/tempo" wallet login`. |
+| "access key does not exist" | Key not provisioned on-chain, or stale key after reinstall | Run `"$HOME/.tempo/bin/tempo" wallet logout --yes`, then `"$HOME/.tempo/bin/tempo" wallet login` to provision a fresh key. |
+| `ready=false` or `No wallet configured` | Wallet not logged in | Run `"$HOME/.tempo/bin/tempo" wallet login`, wait for user completion, then rerun `"$HOME/.tempo/bin/tempo" wallet -t whoami`. |
+| HTTP 422 on first request to a service | Wrong request schema — field names vary across services | Check `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>` for endpoint details, then fetch the endpoint's `docs` URL or the service's `llms.txt` for exact field names and types. |
+| Balance is 0, insufficient funds, or spending limit exceeded | Wallet needs funding or limit hit | Run `"$HOME/.tempo/bin/tempo" wallet fund` or direct user to the wallet dashboard. Report clearly and stop if limit is exceeded. |
+| Token balance is 0 but MPP Credits may be available | Credits are separate from token balances | Run `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits`. If the service shows `supportsCredits: true`, credits can be used for one-time charge payments. |
+| Need to buy MPP Credits | User wants to fund with card-based credits for eligible services | Run `"$HOME/.tempo/bin/tempo" wallet fund --credits`, complete checkout in the wallet app, then recheck with `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits`. |
+| Credits are not accepted by a service | MPP Credits only work for eligible Tempo-proxied services | Inspect `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>` and use credits only when `supportsCredits: true` is present. Otherwise use token funding with `"$HOME/.tempo/bin/tempo" wallet fund`. |
 | Service uses sessions | MPP Credits currently support one-time charges, not sessions | Use token funding for session-based services. |
-| Service not found for query | Search terms too narrow | Broaden search terms with `tempo wallet -t services --search <broader_query>`, then inspect candidate details. |
-| Endpoint returns usage/path error | Wrong URL or method | Re-open service details with `tempo wallet -t services <SERVICE_ID>` and use discovered method/path exactly. |
+| Service not found for query | Search terms too narrow | Broaden search terms with `"$HOME/.tempo/bin/tempo" wallet -t services --search <broader_query>`, then inspect candidate details. |
+| Endpoint returns usage/path error | Wrong URL or method | Re-open service details with `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>` and use discovered method/path exactly. |
 | Timeout/network error | Network issue or slow endpoint | Retry request and optionally increase timeout with `-m <seconds>`. |
