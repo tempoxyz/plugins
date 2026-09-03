@@ -13,7 +13,7 @@
       "description": "Read Tempo documentation and use its examples while building on Tempo.",
       "source": "./plugins/docs",
       "category": "development",
-      "homepage": "https://docs.tempo.xyz/guide/using-tempo-with-ai"
+      "homepage": "https://tempo.xyz/developers/docs/guide/using-tempo-with-ai"
     },
     {
       "name": "wallet",
@@ -24,10 +24,10 @@
     },
     {
       "name": "mercator",
-      "description": "Discover, quote, and run paid API workflows through one secure MCP connection.",
+      "description": "Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.",
       "source": "./plugins/mercator",
       "category": "research",
-      "homepage": "https://mercator.tempo.xyz"
+      "homepage": "https://mercator.tempo.xyz/"
     }
   ]
 }

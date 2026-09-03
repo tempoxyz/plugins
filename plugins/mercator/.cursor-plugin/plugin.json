@@ -10,7 +10,15 @@
   "repository": "https://github.com/tempoxyz/plugins",
   "license": "MIT",
   "logo": "./assets/favicon.svg",
-  "keywords": ["api", "current-data", "mercator", "mcp", "payments", "tempo"],
-  "mcpServers": "./.mcp.json",
-  "skills": "./skills/"
+  "keywords": [
+    "api",
+    "current-data",
+    "mercator",
+    "mcp",
+    "paid-services",
+    "payments",
+    "tempo"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
 }

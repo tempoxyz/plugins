@@ -1,5 +1,7 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import { catalog, plugins } from '../manifest.config.ts'
+import { findManifestDrift } from './build-manifests.ts'
 
 type JsonObject = Record<string, unknown>
 
@@ -18,14 +20,21 @@ type PluginManifest = {
   version: string
 }
 
-const pluginNames = ['docs', 'wallet', 'mercator'] as const
-const repository = 'https://github.com/tempoxyz/plugins'
+const pluginNames = plugins.map((plugin) => plugin.name)
 
 const readJson = <T extends JsonObject>(root: string, filename: string): T =>
   JSON.parse(readFileSync(join(root, filename), 'utf8')) as T
 
 export const validateRepository = (root: string): string[] => {
-  const failures: string[] = []
+  const failures = findManifestDrift(root)
+  const pluginDirectories = readdirSync(join(root, 'plugins'), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort()
+  const configuredPlugins = [...pluginNames].sort()
+  if (JSON.stringify(pluginDirectories) !== JSON.stringify(configuredPlugins)) {
+    failures.push('plugins/: directories must match manifest.config.ts')
+  }
   const safeReadJson = <T extends JsonObject>(filename: string): T | undefined => {
     try {
       return readJson<T>(root, filename)
@@ -69,8 +78,8 @@ export const validateRepository = (root: string): string[] => {
     for (const [kind, manifest] of Object.entries(manifests)) {
       if (!manifest) continue
       if (manifest.name !== name) failures.push(`${pluginRoot}: ${kind} name mismatch`)
-      if (manifest.repository !== repository) {
-        failures.push(`${pluginRoot}: ${kind} repository must be ${repository}`)
+      if (manifest.repository !== catalog.repository) {
+        failures.push(`${pluginRoot}: ${kind} repository must be ${catalog.repository}`)
       }
     }
 

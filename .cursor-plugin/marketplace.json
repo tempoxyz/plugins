@@ -12,21 +12,40 @@
       "source": "plugins/docs",
       "description": "Read Tempo documentation and use its examples while building on Tempo.",
       "category": "Developer Tools",
-      "tags": ["docs", "mcp", "payments", "tempo"]
+      "tags": [
+        "tempo",
+        "documentation",
+        "mcp",
+        "stablecoins",
+        "payments"
+      ]
     },
     {
       "name": "wallet",
       "source": "plugins/wallet",
       "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
       "category": "Finance",
-      "tags": ["mpp", "payments", "tempo", "wallet"]
+      "tags": [
+        "tempo",
+        "wallet",
+        "mpp",
+        "payments"
+      ]
     },
     {
       "name": "mercator",
       "source": "plugins/mercator",
-      "description": "Discover, quote, and run paid API workflows through one secure MCP connection.",
+      "description": "Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.",
       "category": "Productivity",
-      "tags": ["api", "current-data", "mcp", "payments", "tempo"]
+      "tags": [
+        "api",
+        "current-data",
+        "mercator",
+        "mcp",
+        "paid-services",
+        "payments",
+        "tempo"
+      ]
     }
   ]
 }
