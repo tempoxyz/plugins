@@ -1,0 +1,32 @@
+{
+  "name": "tempo",
+  "owner": {
+    "name": "Tempo"
+  },
+  "metadata": {
+    "description": "Tempo plugins for documentation and current-data API workflows."
+  },
+  "plugins": [
+    {
+      "name": "tempo-docs",
+      "source": "plugins/tempo-docs",
+      "description": "Read Tempo documentation and use its examples while building on Tempo.",
+      "category": "Developer Tools",
+      "tags": ["docs", "mcp", "payments", "tempo"]
+    },
+    {
+      "name": "tempo-wallet",
+      "source": "plugins/tempo-wallet",
+      "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
+      "category": "Finance",
+      "tags": ["mpp", "payments", "tempo", "wallet"]
+    },
+    {
+      "name": "mercator",
+      "source": "plugins/mercator",
+      "description": "Discover, quote, and run paid API workflows through one secure MCP connection.",
+      "category": "Productivity",
+      "tags": ["api", "current-data", "mcp", "payments", "tempo"]
+    }
+  ]
+}

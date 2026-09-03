@@ -1,0 +1,13 @@
+{
+  "name": "@tempoxyz/plugins",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:gemini": "node scripts/build-gemini.mjs",
+    "test": "node scripts/validate.mjs && node scripts/build-gemini.mjs && node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
