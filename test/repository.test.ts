@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it, test } from 'vitest'
 import { plugins } from '../manifest.config.ts'
 import { validateRepository } from '../scripts/validate.ts'
 
@@ -183,6 +183,34 @@ describe('repository validation', () => {
   test('repository tooling uses TypeScript rather than MJS', () => {
     for (const directory of ['scripts', 'test']) {
       expect(readdirSync(join(root, directory)).filter((name) => name.endsWith('.mjs'))).toEqual([])
+    }
+  })
+
+  it('should keep public documentation free of internal launch state', () => {
+    // Arrange
+    const documents = [
+      'README.md',
+      'CONTRIBUTING.md',
+      ...readdirSync(join(root, 'submissions'), { encoding: 'utf8', recursive: true })
+        .filter((name) => name.endsWith('.md'))
+        .map((name) => join('submissions', name)),
+    ]
+    const internalState = [
+      /repository stays private/i,
+      /private (?:installation|validation|product repository)/i,
+      /public[- ]launch approval/i,
+      /human approvals are not required/i,
+      /tempoxyz\/tempo-apps#/i,
+      /tempoxyz\/mercator\/apps/i,
+      /short-lived token/i,
+    ]
+
+    // Act and assert
+    for (const filename of documents) {
+      const content = readFileSync(join(root, filename), 'utf8')
+      for (const pattern of internalState) {
+        expect(content, `${filename}: ${pattern}`).not.toMatch(pattern)
+      }
     }
   })
 })

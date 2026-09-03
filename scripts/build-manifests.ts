@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { catalog, plugins, type PluginDefinition } from '../manifest.config.ts'
@@ -162,22 +162,64 @@ export const compileManifests = (): ReadonlyMap<string, string> => {
 export const findManifestDrift = (
   directory: string,
   files: ReadonlyMap<string, string> = compileManifests(),
-): string[] => [...files].flatMap(([filename, expected]) => {
-  const path = join(directory, filename)
-  if (!existsSync(path)) return [`${filename}: missing`]
-  return readFileSync(path, 'utf8') === expected ? [] : [`${filename}: out of date`]
-})
+): string[] => [
+  ...[...files].flatMap(([filename, expected]) => {
+    const path = join(directory, filename)
+    if (!existsSync(path)) return [`${filename}: missing`]
+    return readFileSync(path, 'utf8') === expected ? [] : [`${filename}: out of date`]
+  }),
+  ...findUnexpectedManifests(directory, files).map((filename) => `${filename}: unexpected`),
+]
 
 export const writeManifests = (
   directory: string,
   files: ReadonlyMap<string, string> = compileManifests(),
 ): void => {
+  for (const filename of findUnexpectedManifests(directory, files)) {
+    rmSync(join(directory, filename))
+  }
   for (const [filename, content] of files) {
     const path = join(directory, filename)
     mkdirSync(dirname(path), { recursive: true })
     writeFileSync(path, content)
   }
 }
+
+const findUnexpectedManifests = (
+  directory: string,
+  files: ReadonlyMap<string, string>,
+): string[] => {
+  const expected = new Set(files.keys())
+  return generatedManifestCandidates(directory).filter((filename) => !expected.has(filename))
+}
+
+const generatedManifestCandidates = (directory: string): string[] => {
+  const fixed = [
+    '.agents/plugins/marketplace.json',
+    '.claude-plugin/marketplace.json',
+    '.cursor-plugin/marketplace.json',
+  ]
+  const pluginFiles = childDirectories(join(directory, 'plugins')).flatMap((name) => [
+    `plugins/${name}/plugin.json`,
+    `plugins/${name}/.codex-plugin/plugin.json`,
+    `plugins/${name}/.claude-plugin/plugin.json`,
+    `plugins/${name}/.cursor-plugin/plugin.json`,
+    `plugins/${name}/.mcp.json`,
+    `plugins/${name}/mcp.json`,
+  ])
+  const registryFiles = childDirectories(join(directory, 'registry'))
+    .map((name) => `registry/${name}/server.json`)
+  return [...fixed, ...pluginFiles, ...registryFiles]
+    .filter((filename) => existsSync(join(directory, filename)))
+    .sort()
+}
+
+const childDirectories = (directory: string): string[] =>
+  existsSync(directory)
+    ? readdirSync(directory, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+    : []
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 if (isMain) {

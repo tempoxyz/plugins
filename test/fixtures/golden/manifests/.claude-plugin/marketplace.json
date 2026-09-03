@@ -1,0 +1,33 @@
+{
+  "name": "tempo",
+  "metadata": {
+    "description": "Tempo Claude Code plugin marketplace."
+  },
+  "owner": {
+    "name": "Tempo",
+    "email": "support@tempo.xyz"
+  },
+  "plugins": [
+    {
+      "name": "docs",
+      "description": "Read Tempo documentation and use its examples while building on Tempo.",
+      "source": "./plugins/docs",
+      "category": "development",
+      "homepage": "https://tempo.xyz/developers/docs/guide/using-tempo-with-ai"
+    },
+    {
+      "name": "wallet",
+      "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
+      "source": "./plugins/wallet",
+      "category": "finance",
+      "homepage": "https://tempo.xyz/developers/docs/wallet/use-with-agents"
+    },
+    {
+      "name": "mercator",
+      "description": "Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.",
+      "source": "./plugins/mercator",
+      "category": "research",
+      "homepage": "https://mercator.tempo.xyz/"
+    }
+  ]
+}

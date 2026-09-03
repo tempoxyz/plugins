@@ -18,6 +18,10 @@ gh skill publish --dry-run
 Run `npm run format:json` after changing JSON files. CI rejects malformed or
 non-canonical JSON through `npm run check:json`.
 
+When an intentional catalog change affects generated output, run
+`npm run update:goldens` and review every fixture diff before running the full
+test suite. CI compares every platform manifest with these golden files.
+
 Live MCP checks may be omitted only when the endpoint is unavailable for a
 known, tracked reason. Use conventional commits. Sign every commit and release
 tag cryptographically.
