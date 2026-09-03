@@ -1,0 +1,13 @@
+interface:
+  display_name: "Mercator"
+  short_description: "Discover, quote, and run paid API workflows"
+  default_prompt: "Use $mercator to complete this task with fresh external data."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "mercator"
+      description: "Mercator service discovery and durable job execution"
+      transport: "streamable_http"
+      url: "https://mercator.tempo.xyz/mcp/auth"
+policy:
+  allow_implicit_invocation: true

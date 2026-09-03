@@ -29,7 +29,7 @@
       "Explain Tempo payment memos with an example."
     ],
     "brandColor": "#000000",
-    "composerIcon": "./assets/favicon.svg",
-    "logo": "./assets/favicon.svg"
+    "composerIcon": "./assets/tempo-mark.svg",
+    "logo": "./assets/tempo-mark.svg"
   }
 }

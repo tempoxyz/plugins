@@ -85,9 +85,7 @@ Ask for that address; do not invent it or quietly remove the email step.
 After approval, call `create_job` once with the unchanged quoted plan, a stable idempotency key, and
 the accepted `totalAmount` as `approved_total`. OAuth-connected hosts charge the bounded wallet
 inside Mercator. Other clients complete any payment challenge through MCP metadata. Never install a
-CLI for fallback. Translate the submission to REST only after MCP submission and one identical retry
-both fail, and only when the host already has a ready local Mercator wallet, as described in the
-parent skill.
+CLI or translate MCP submission into a REST request.
 
 A successful submission returns either a terminal job or a pending response:
 

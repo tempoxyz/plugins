@@ -24,7 +24,7 @@
       "Find 15 overlooked Boston HVAC businesses, verify owner emails, flag outdated sites, and map a route from Back Bay.",
       "Investigate unusual AAVE activity across smart-money flows, holders, price, news, and regulation; return a sourced chart."
     ],
-    "brandColor": "#1D4FFF",
+    "brandColor": "#0B0B0B",
     "composerIcon": "./assets/favicon.svg",
     "logo": "./assets/favicon.svg"
   }

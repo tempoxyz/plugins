@@ -7,7 +7,7 @@
   "homepage": "https://tempo.xyz/developers/docs/wallet/use-with-agents",
   "repository": "https://github.com/tempoxyz/plugins",
   "license": "MIT",
-  "logo": "./assets/favicon.svg",
+  "logo": "./assets/tempo-mark.svg",
   "keywords": ["tempo", "wallet", "mpp", "payments"],
   "skills": "./skills/"
 }

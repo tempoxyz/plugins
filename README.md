@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://tempo.xyz">
-    <img alt="Tempo" src="./plugins/docs/assets/favicon.svg" width="80" height="80">
+    <img alt="Tempo" src="./plugins/docs/assets/tempo-mark.svg" width="80" height="80">
   </a>
 </p>
 
@@ -47,6 +47,10 @@ requirements.
 npm test          # Validate manifests, distributions, and repository policy
 npm run test:mcp  # Smoke-test production MCP endpoints
 ```
+
+Repository tooling is TypeScript and tested with Vitest. The Mercator skill is
+generated from its private product repository; changes arrive here through a
+signed synchronization pull request.
 
 ## Contributing
 

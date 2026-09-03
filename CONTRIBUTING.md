@@ -22,7 +22,7 @@ tag cryptographically.
 
 1. Update the version in every manifest for each changed plugin.
 2. Run the validation commands above and inspect the generated Gemini files.
-3. Merge through a reviewed pull request with required checks passing.
+3. Merge through a pull request with required checks passing.
 4. Create and push a signed `v*` tag from `main`.
 
 The release workflow verifies the tag signature and publishes native and Gemini
@@ -33,6 +33,10 @@ the independently versioned plugin releases.
 
 - Dependabot checks pinned workflow actions weekly.
 - Production MCP endpoints are smoke-tested daily.
-- `main` requires validation, review, and resolved review threads.
+- `main` requires validation and signed commits; human approvals are not required.
+- Tempo marks are copied from `tempoxyz/tempo-web/public/images/icons/logo-compact.svg`.
+- Mercator's icon is copied from `tempoxyz/mercator/apps/web/public/favicon.svg`.
+- The Mercator skill is generated from private `tempoxyz/mercator`. Do not edit its public copy.
+- Its automation uses a short-lived token scoped to this repository and opens a signed pull request.
 - Report marketplace compatibility changes through an issue and update the
   corresponding manifest, test, and submission notes together.

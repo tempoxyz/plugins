@@ -82,7 +82,8 @@ continue automatically after every completed approval or pending status transiti
   to `approved_total`. This is an explicit fallback, never an MCP response handoff.
 - If status polling is interrupted, resume `get_job` with the job ID. Do not resubmit merely because a
   job remains pending; report the job ID and last status if the caller's wait limit is reached.
-- Use `create_job_review` only when the user wants to review a completed job. Use
+- Use `create_job_review` only when the user wants to review a completed job. Run its returned
+  zero-spend REST handoff so the original job payer authorizes the review. Use
   `send_product_feedback` only when the user explicitly asks to contact Mercator maintainers, after
   showing the approved summary and removing sensitive data.
 
