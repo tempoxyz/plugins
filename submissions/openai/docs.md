@@ -58,11 +58,9 @@ Expected result shape: concise prose or code plus source URLs from Tempo docs.
 3. Prompt: “Pay for this API with Tempo.” Expected: do not call the paid service
    or initiate payment; explain the docs and direct the user to a separate tool.
 
-## Pre-submission blockers
+## Submission requirements
 
-- Merge and deploy `tempoxyz/tempo-apps#1230`, then require
-  `npm run test:mcp` to pass. Production currently omits annotations from the
-  generated `code` tool.
+- Require `npm run test:mcp` to pass against the production MCP server.
 - Publish an MCP-specific privacy disclosure with concrete retention periods,
   or confirm the existing policy explicitly covers MCP prompts, tool inputs,
   retrieved documentation, logs, and feedback.

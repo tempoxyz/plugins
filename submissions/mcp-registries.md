@@ -13,7 +13,7 @@ registry directory. The official registry is in preview.
 
 ## Smithery
 
-Publish hosted URLs after public-launch approval:
+Publish the hosted URLs:
 
 ```bash
 smithery mcp publish "https://mcp.tempo.xyz" -n @tempoxyz/docs

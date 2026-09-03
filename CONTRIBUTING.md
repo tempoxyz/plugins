@@ -37,10 +37,9 @@ the independently versioned plugin releases.
 
 - Dependabot checks pinned workflow actions weekly.
 - Production MCP endpoints are smoke-tested daily.
-- `main` requires validation and signed commits; human approvals are not required.
-- Tempo marks are copied from `tempoxyz/tempo-web/public/images/icons/logo-compact.svg`.
-- Mercator's icon is copied from `tempoxyz/mercator/apps/web/public/favicon.svg`.
-- The Mercator skill is generated from private `tempoxyz/mercator`. Do not edit its public copy.
-- Its automation uses a short-lived token scoped to this repository and opens a signed pull request.
+- All changes must pass validation and use signed commits.
+- Use the canonical Tempo and Mercator brand assets.
+- The Mercator skill is generated upstream. Do not edit its generated copy.
+- Upstream Mercator changes arrive through signed synchronization pull requests.
 - Report marketplace compatibility changes through an issue and update the
   corresponding manifest, test, and submission notes together.

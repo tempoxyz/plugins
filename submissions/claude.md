@@ -1,6 +1,6 @@
 # Claude Code distribution
 
-Private installation works now for authorized Tempo GitHub users:
+Install from the Tempo marketplace:
 
 ```bash
 claude plugin marketplace add tempoxyz/plugins
