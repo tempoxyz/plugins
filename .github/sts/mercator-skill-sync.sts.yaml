@@ -1,0 +1,8 @@
+# Allow only the Mercator main-branch sync workflow to open its generated
+# update pull request in this repository.
+subject: repo:tempoxyz@211589300/mercator@1331378779:ref:refs/heads/main
+claim_pattern:
+  job_workflow_ref: tempoxyz/mercator/\.github/workflows/public-plugin-sync\.yml@refs/heads/main
+permissions:
+  contents: write
+  pull_requests: write

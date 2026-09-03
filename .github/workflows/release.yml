@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify signed tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag_object=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$GITHUB_REF_NAME" --jq '.object | select(.type == "tag") | .sha')
+          test -n "$tag_object"
+          test "$(gh api "repos/$GITHUB_REPOSITORY/git/tags/$tag_object" --jq .verification.verified)" = true
+      - run: npm test
+      - name: Validate Claude marketplace
+        run: npx --yes @anthropic-ai/claude-code@2.1.259 plugin validate --strict .
+      - name: Validate GitHub Agent Skills
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh skill publish --dry-run
+      - name: Package plugins
+        run: |
+          mkdir -p dist/releases dist/native
+          for plugin in docs tempo-wallet mercator; do
+            cp -R "plugins/$plugin" "dist/native/$plugin"
+            cp LICENSE "dist/native/$plugin/LICENSE"
+            tar -C dist/native -czf "dist/releases/${plugin}.tar.gz" "$plugin"
+            (cd dist/native && zip -qr "../releases/${plugin}.zip" "$plugin")
+            (cd dist/gemini && zip -qr "../releases/${plugin}-gemini.zip" "$plugin")
+          done
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/releases/* --generate-notes --verify-tag
