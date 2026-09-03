@@ -1,0 +1,11 @@
+{
+  "name": "mercator",
+  "version": "0.3.1",
+  "description": "Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.",
+  "mcpServers": {
+    "mercator": {
+      "httpUrl": "https://mercator.tempo.xyz/mcp/auth",
+      "timeout": 600000
+    }
+  }
+}

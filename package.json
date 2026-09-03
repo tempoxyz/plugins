@@ -12,6 +12,7 @@
     "check:types": "tsc --noEmit",
     "format:json": "prettier --write \"**/*.json\" --ignore-path .gitignore",
     "list:plugins": "tsx scripts/list-plugins.ts",
+    "update:goldens": "tsx scripts/update-goldens.ts",
     "test": "npm run check:types && npm run check:json && npm run check:manifests && npm run build:gemini && vitest run",
     "test:mcp": "vitest run --config vitest.mcp.config.ts"
   },
