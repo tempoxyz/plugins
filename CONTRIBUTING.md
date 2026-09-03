@@ -15,6 +15,9 @@ claude plugin validate --strict .
 gh skill publish --dry-run
 ```
 
+Run `npm run format:json` after changing JSON files. CI rejects malformed or
+non-canonical JSON through `npm run check:json`.
+
 Live MCP checks may be omitted only when the endpoint is unavailable for a
 known, tracked reason. Use conventional commits. Sign every commit and release
 tag cryptographically.

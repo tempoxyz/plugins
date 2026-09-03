@@ -8,7 +8,15 @@
     "noUncheckedIndexedAccess": true,
     "strict": true,
     "target": "ES2024",
-    "types": ["node", "vitest/globals"]
+    "types": [
+      "node",
+      "vitest/globals"
+    ]
   },
-  "include": ["manifest.config.ts", "scripts/**/*.ts", "test/**/*.ts", "vitest*.ts"]
+  "include": [
+    "manifest.config.ts",
+    "scripts/**/*.ts",
+    "test/**/*.ts",
+    "vitest*.ts"
+  ]
 }

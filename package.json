@@ -7,10 +7,12 @@
     "build": "npm run build:manifests && npm run build:gemini",
     "build:gemini": "tsx scripts/build-gemini.ts",
     "build:manifests": "tsx scripts/build-manifests.ts",
+    "check:json": "prettier --check \"**/*.json\" --ignore-path .gitignore",
     "check:manifests": "tsx scripts/build-manifests.ts --check",
     "check:types": "tsc --noEmit",
+    "format:json": "prettier --write \"**/*.json\" --ignore-path .gitignore",
     "list:plugins": "tsx scripts/list-plugins.ts",
-    "test": "npm run check:types && npm run check:manifests && npm run build:gemini && vitest run",
+    "test": "npm run check:types && npm run check:json && npm run check:manifests && npm run build:gemini && vitest run",
     "test:mcp": "vitest run --config vitest.mcp.config.ts"
   },
   "engines": {
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "@types/node": "26.1.2",
+    "prettier": "3.9.6",
     "tsx": "4.23.12",
     "typescript": "7.0.2",
     "vite": "8.2.0",
