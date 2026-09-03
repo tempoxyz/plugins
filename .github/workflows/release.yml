@@ -35,7 +35,7 @@ jobs:
       - name: Package plugins
         run: |
           mkdir -p dist/releases dist/native
-          for plugin in docs tempo-wallet mercator; do
+          for plugin in docs wallet mercator; do
             cp -R "plugins/$plugin" "dist/native/$plugin"
             cp LICENSE "dist/native/$plugin/LICENSE"
             tar -C dist/native -czf "dist/releases/${plugin}.tar.gz" "$plugin"

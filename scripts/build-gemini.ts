@@ -19,7 +19,7 @@ type GeminiManifest = PortableManifest & {
 const root = fileURLToPath(new URL('..', import.meta.url))
 const pluginsRoot = join(root, 'plugins')
 const outputRoot = join(root, 'dist', 'gemini')
-const pluginNames = ['docs', 'tempo-wallet', 'mercator'] as const
+const pluginNames = ['docs', 'wallet', 'mercator'] as const
 
 const readJson = <T>(filename: string): T =>
   JSON.parse(readFileSync(filename, 'utf8')) as T

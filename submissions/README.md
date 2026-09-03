@@ -16,7 +16,7 @@ but are excluded from OpenAI review.
 | MCP Registry | `registry/*/server.json` | JSON and endpoint checks | DNS verification and `mcp-publisher publish` |
 | Smithery | Hosted MCP URLs | Endpoint checks | Publish URL and complete server scan |
 
-Do not submit `tempo-wallet` or `mercator` to the OpenAI directory. Their paid
+Do not submit `wallet` or `mercator` to the OpenAI directory. Their paid
 digital-service and transaction workflows conflict with current directory
 commerce rules. They remain valid candidates for stores that permit those
 capabilities and accurately disclose them.

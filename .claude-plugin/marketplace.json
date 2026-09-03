@@ -16,9 +16,9 @@
       "homepage": "https://docs.tempo.xyz/guide/using-tempo-with-ai"
     },
     {
-      "name": "tempo-wallet",
+      "name": "wallet",
       "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
-      "source": "./plugins/tempo-wallet",
+      "source": "./plugins/wallet",
       "category": "finance",
       "homepage": "https://tempo.xyz/developers/docs/wallet/use-with-agents"
     },

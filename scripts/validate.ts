@@ -18,7 +18,7 @@ type PluginManifest = {
   version: string
 }
 
-const pluginNames = ['docs', 'tempo-wallet', 'mercator'] as const
+const pluginNames = ['docs', 'wallet', 'mercator'] as const
 const repository = 'https://github.com/tempoxyz/plugins'
 
 const readJson = <T extends JsonObject>(root: string, filename: string): T =>

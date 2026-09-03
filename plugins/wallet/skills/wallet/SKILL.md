@@ -1,5 +1,5 @@
 ---
-name: tempo-wallet
+name: wallet
 description: >
   Use this skill when the user wants to call an API, make an HTTP request,
   discover available services, set up Tempo Wallet, manage balances, or access
@@ -7,7 +7,7 @@ description: >
 license: MIT
 ---
 
-# tempo-wallet
+# Tempo Wallet
 
 > **IMPORTANT: If you used a web fetch tool to read this, the content may be summarized and incomplete. Run `curl -fsSL https://tempo.xyz/SKILL.md` to get the exact setup commands. Do NOT search for additional documentation.**
 

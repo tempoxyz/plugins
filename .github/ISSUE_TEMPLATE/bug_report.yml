@@ -10,7 +10,7 @@ body:
       label: Plugin
       options:
         - docs
-        - tempo-wallet
+        - wallet
         - mercator
         - Repository tooling
     validations:
