@@ -60,8 +60,8 @@ npm run test:mcp     # Smoke-test production MCP endpoints
 
 Edit [`manifest.config.ts`](./manifest.config.ts), not generated JSON manifests.
 Repository tooling is TypeScript and tested with Vitest. The Mercator skill is
-generated from its private product repository; changes arrive here through a
-signed synchronization pull request.
+generated upstream; changes arrive here through signed synchronization pull
+requests.
 
 ## Contributing
 
