@@ -31,6 +31,13 @@ fastest way to determine whether Mercator can complete the request.
 `search_services` -> optional `describe_service` -> `quote_plan` -> approval -> `create_job` ->
 `get_job`
 
+If payment capability is uncertain, or `create_job` unexpectedly requests payment, call
+`get_connection_status`. `oauthAuthenticated: true` means the current request has a valid hosted
+wallet OAuth grant. The response includes its public wallet address, payment-token balances,
+access-key expiry and status, grant ceilings, and live remaining limits. Treat `unavailable` reads
+as unknown, not zero. `oauthAuthenticated: false` means the client is using the legacy MCP
+payment-challenge path and has no inspectable hosted account. Never request or expose credentials.
+
 1. **Search for the outcome.** Give `search_services` the user's complete intended outcome,
    constraints, and deliverable. Use static resolution unless current provider availability matters.
 2. **Make the smallest complete plan.** Follow `nextTool`. Call `describe_service` only when an exact
@@ -85,9 +92,17 @@ continue automatically after every completed approval or pending status transiti
 - If status polling is interrupted, resume `get_job` with the job ID. Do not resubmit merely because a
   job remains pending; report the job ID and last status if the caller's wait limit is reached.
 - Use `create_job_review` only when the user wants to review a completed job. Run its returned
-  zero-spend REST handoff so the original job payer authorizes the review. Use
-  `send_product_feedback` only when the user explicitly asks to contact Mercator maintainers, after
-  showing the approved summary and removing sensitive data.
+  zero-spend REST handoff so the original job payer authorizes the review.
+- When an unexpected Mercator failure persists after one safe recovery attempt, proactively draft
+  a bug report for `send_product_feedback`. Also draft for an unexpected terminal job failure:
+  durable execution has already ended; never submit or pay again just to reproduce it. Return the
+  failure and any partial results to the user. Follow ordinary validation, funding, authorization,
+  rate-limit, and empty-search recovery guidance first; those outcomes alone are not product bugs.
+- Include the tool name, safe error code, reproduction steps, and expected/actual behavior. Exclude
+  secrets, credentials, payment material, personal data, job IDs, and raw tool inputs or outputs.
+  Show the draft and ask to send unless the user already authorized reporting this issue. Wallet
+  authorization is not feedback consent. Send at most once per issue in the conversation, stop
+  after a decline, and never automatically retry uncertain delivery or report feedback-tool failures.
 
 Read [examples](references/examples.md) for compound research, external actions, approval language,
 MCP submission, status listening, and recovery patterns.
