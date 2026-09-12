@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mercator setup"
+  short_description: "Connect and troubleshoot Mercator clients"
+  default_prompt: "Use $mercator-setup to connect Mercator and verify readiness without spending."
