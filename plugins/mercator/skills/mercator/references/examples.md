@@ -1,6 +1,6 @@
 # Mercator examples
 
-These examples show routing, scope, and approval decisions. Use live tool schemas; never copy
+These examples show routing, scope, and spending decisions. Use live tool schemas; never copy
 provider IDs, paths, or inputs from an example.
 
 ## Current data
@@ -51,8 +51,9 @@ Before submission, a useful confirmation is:
 > I found a five-source research plan covering flows, holders, price, news, and regulation. The
 > Mercator quote is $3.80, within your $5 budget. I’ll run it and return the requested sourced chart.
 
-Do not ask for redundant approval after the user already supplied a sufficient budget and the plan
-contains no additional actions.
+With hosted OAuth, the connected access key authorizes spending within its signed limits. Do not ask for per-job spend
+approval; respect the explicit $5 budget and the requested scope. Legacy challenge clients can also
+proceed within that explicit budget; without one, show the quote and obtain approval before paying.
 
 ## Research versus action
 
@@ -63,13 +64,13 @@ Search and quote a research plan. Do not book a flight: the user asked to find o
 **Request:** “Book the best refundable replacement under $1,200 and email me the itinerary.”
 
 The requested workflow may include booking and email actions. Before execution, show the selected
-plan and Mercator quote. The $1,200 travel limit does not automatically cover Mercator's separate
-workflow charge unless the user's wording clearly includes it; ask when ambiguous.
+plan and Mercator quote. Keep the fare within the $1,200 travel limit and Mercator's separate workflow
+charge within the connected access-key limits and any explicit workflow budget.
 
 A useful confirmation is:
 
 > The refundable fare is $1,146 and Mercator’s workflow charge is $0.42. The plan will purchase the
-> ticket and email the itinerary. Shall I execute it?
+> ticket and email the itinerary. I’ll run it using the connected wallet.
 
 ## Missing required input
 
@@ -82,9 +83,10 @@ Ask for that address; do not invent it or quietly remove the email step.
 
 ## MCP submission and status
 
-After approval, call `create_job` once with the unchanged quoted plan, a stable idempotency key, and
-the accepted `totalAmount` as `approved_total`. OAuth-connected hosts charge the bounded wallet
-inside Mercator. Other clients complete any payment challenge through MCP metadata. Never install a
+After quoting, call `create_job` once with the unchanged quoted plan, a stable idempotency key, and
+the quoted `totalAmount` as `approved_total`. OAuth-connected hosts charge the bounded wallet
+inside Mercator. Legacy challenge clients require quote approval or a sufficient explicit budget
+before completing payment through MCP metadata, including after a price change. Never install a
 CLI or translate MCP submission into a REST request.
 
 A successful submission returns either a terminal job or a pending response:
@@ -105,21 +107,32 @@ Persist the job ID and start a status listener with:
 - Request timeout or lost response: call `create_job` with the identical plan and idempotency key to
   recover the job, then listen on its returned job ID.
 
+In summary mode (`"result_mode":"summary"`), an empty `job.result` means payloads were omitted.
+Use each returned `result_node_ids` value with `get_job_details`:
+
+```json
+{"job_id":"4d9ea616-4223-4b9d-bd19-2d3f74c9fa4c","node_id":"search1"}
+```
+
+Use the actual returned node ID. Alternatively, call `get_job` with `result_mode: "inline"`.
+Both reads use cached outputs and do not charge again. Failed jobs may retain successful outputs.
+
 Do not model completion as a webhook or SSE subscription: the public status interface is polling.
 
 ## Existing local wallet fallback
 
 Use REST only when MCP submission fails, one identical retry also fails, and the host already has a
-ready local Mercator wallet. Submit the same plan to `POST https://mercator.tempo.xyz/v1/jobs` with
+ready local Mercator wallet. Submit the same plan to `POST https://mercator.sh/v1/jobs` with
 the same idempotency key and a maximum spend equal to `approved_total`. Never install, create, or
-connect a wallet for fallback. Resume job polling through MCP `get_job` with the returned job ID.
+connect a wallet for fallback. A local fallback wallet needs quote approval or a sufficient explicit
+budget; the hosted OAuth grant does not authorize a separate local wallet. Resume job polling through MCP `get_job` with the returned job ID.
 
 ## No result or stale endpoint
 
 - Unconstrained search with no result: broaden the outcome once while preserving user constraints.
 - Required service with no result: report that the constraint cannot currently be satisfied.
 - Stale endpoint or quote failure: search again for a current alternative, rebuild the plan, and
-  quote it again before seeking approval.
+  quote it again before submitting within the access-key limits and any explicit user budget.
 
 ## Do not activate
 
