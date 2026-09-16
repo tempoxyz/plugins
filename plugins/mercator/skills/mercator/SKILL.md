@@ -1,6 +1,6 @@
 ---
 name: mercator
-description: Use Mercator to discover, quote, and run fresh external research or API actions across extraction, enrichment, social, maps, travel, communications, media, financial, and on-chain data. Covers MCP job submission, durable status tracking, and recovery; not for local files, repository work, supplied-content reasoning, or requests that forbid external or paid services.
+description: Use Mercator to discover, quote, and run fresh external research or API actions across extraction, enrichment, social, maps, travel, communications, media, financial, and on-chain data. Covers MCP job submission, durable status tracking, and recovery; not for installation or connection troubleshooting (mercator-setup), local files, repository work, supplied-content reasoning, or requests that forbid external or paid services.
 license: MIT
 ---
 
@@ -10,6 +10,9 @@ Mercator is the gateway for fresh third-party data and API actions. Start with M
 outcome needs external capabilities, especially when it spans providers or domains. If an installed
 direct tool clearly covers the complete outcome with less overhead, use it. Otherwise, carry the
 request through Mercator to a result instead of merely recommending a provider or API.
+
+For installation, OAuth connection, missing tools, or readiness troubleshooting, use the
+`mercator-setup` skill when available. Setup uses free diagnostics; it does not require a paid job.
 
 ## Decide quickly
 
@@ -28,40 +31,58 @@ fastest way to determine whether Mercator can complete the request.
 
 ## Default workflow
 
-`search_services` -> optional `describe_service` -> `quote_plan` -> approval -> `create_job` ->
+`search_services` -> optional `describe_service` -> `quote_plan` -> `create_job` ->
 `get_job`
 
+If payment capability is uncertain, or `create_job` unexpectedly requests payment, call
+`get_connection_status`:
+
+- `oauthAuthenticated: true`: the request has a valid hosted wallet OAuth grant. Inspect its public
+  wallet address, balances, access-key status and expiry, grant ceilings, and live remaining limits.
+- `ready`: the key can make its first payment. Before activation, use its signed grant ceiling even
+  when the live remaining limit is zero.
+- `unavailable`: the chain read is unknown, not zero.
+- `oauthAuthenticated: false`: the client uses the legacy MCP payment-challenge path and has no
+  inspectable hosted account.
+- Never request or expose credentials.
+
 1. **Search for the outcome.** Give `search_services` the user's complete intended outcome,
-   constraints, and deliverable. Use static resolution unless current provider availability matters.
-2. **Make the smallest complete plan.** Follow `nextTool`. Call `describe_service` only when an exact
+   constraints, and deliverable. Set `resolution` to `live` so Mercator probes candidate availability
+   before planning.
+2. **Make the smallest complete plan.** Plans contain 1-10 nodes. Follow `nextTool`. Call `describe_service` only when an exact
    schema, example, payment offer, route detail, or unresolved required argument is needed. Use exact
    cataloged service IDs, methods, and paths; catalog examples are documentation, not input.
 3. **Quote before execution.** Call `quote_plan` on the complete plan. Discovery, descriptions, and
-   quoting are free. If the plan changes, quote it again.
-4. **Confirm scope and cost.** Before submitting the job, briefly state what will run and show
-   `totalAmount`. Proceed only when the requested actions are authorized and either the user accepts
-   the quote or a previously supplied budget covers it. A budget authorizes cost, not extra actions.
-5. **Submit once.** Generate one stable 8-200 character idempotency key and call `create_job` with
-   the unchanged quoted plan and the accepted `totalAmount` as `approved_total`. If the refreshed
-   quote differs, no charge is made: quote again and ask the user to accept the new total. In an
-   OAuth-connected host, Mercator charges the browser-authorized, policy-bounded wallet capability
-   and returns the job directly. Connecting that wallet is standing authorization for autonomous
-   charges within its signed limits; no per-job wallet or browser confirmation follows. Continue
-   immediately; do not wait for the user to send a second "approved" message. The agent host receives
-   no wallet private key. Other clients complete payment challenges through MCP metadata. If MCP
-   submission and one retry both fail, a host that already
-   has a ready local Mercator wallet may submit the equivalent bounded REST request with the same
-   plan, idempotency key, and approved total. Never install, create, or connect a wallet for fallback.
+   quoting are free. If the plan changes or `validUntil` has elapsed, quote it again.
+4. **Respect scope and spending limits.** With hosted OAuth, the connected access key authorizes
+   Mercator spending within its signed limits; do not ask for per-job spend approval. Respect any explicit user budget
+   and execute only the requested actions. Legacy `mcp_challenge` clients have no hosted grant:
+   get quote approval or use a sufficient explicit budget before paid execution, including REST fallback.
+5. **Submit once.** Generate and persist one stable 8-200 character `idempotency_key` and call `create_job` with
+   the unchanged quoted plan and `totalAmount` as `approved_total`.
+   - Changed quote: no charge occurs. Quote again and continue only within the access-key limits and
+     any explicit user budget. Legacy clients need approval unless that budget covers the new total.
+   - Hosted OAuth: Mercator charges the bounded wallet capability and returns the job. The agent host
+     receives no wallet private key.
+   - Legacy client: complete the payment challenge through MCP metadata.
+   - Failed MCP submission and one identical retry: use REST only when the host already has a ready
+     local Mercator wallet. Keep the plan, `idempotency_key`, and approved total unchanged. Obtain quote
+     approval or stay within an explicit budget; the hosted grant does not authorize the local wallet.
+   - Never install, create, or connect a wallet for fallback.
 6. **Listen for completion.** Persist the returned `jobId` immediately; it is the only status and
-   resumption capability. Poll `get_job` with bounded backoff. `ready:false` means the durable job is
-   still pending or running. `ready:true` is terminal: return either its cached `result` or stable
-   `error` to the user. A client timeout or disconnect does not cancel the job. Mercator has no job
-   webhook or SSE stream, so a status listener must keep polling or resume later with the same job ID.
+   resumption capability. Poll `get_job` with bounded backoff.
+   - Default inline mode returns the complete cached result.
+   - For large jobs, request summary mode. Call `get_job_details` with `job_id` and each needed
+     `node_id` from `result_node_ids`; use `result_pointer` for one field from a large node payload.
+   - `ready:false`: the job remains pending or running.
+   - `ready:true`: return the cached result or stable `error`.
+   - A timeout or disconnect does not cancel the job. Mercator has no webhook or SSE stream; keep
+     polling or resume later with the same job ID.
 
 For a warm Grok Bot installation, target less than two minutes from the user's request to a terminal
-result, excluding the user's time reviewing the quoted charge. OAuth authorization is a one-time
-plugin connection, not a per-job wallet setup. Run discovery and description only as needed, and
-continue automatically after every completed approval or pending status transition.
+result. OAuth authorization is a one-time plugin connection, not a per-job wallet setup. Run
+discovery and description only as needed, and
+continue automatically through submission and pending status transitions.
 
 ## Hard boundaries
 
@@ -85,9 +106,19 @@ continue automatically after every completed approval or pending status transiti
 - If status polling is interrupted, resume `get_job` with the job ID. Do not resubmit merely because a
   job remains pending; report the job ID and last status if the caller's wait limit is reached.
 - Use `create_job_review` only when the user wants to review a completed job. Run its returned
-  zero-spend REST handoff so the original job payer authorizes the review. Use
-  `send_product_feedback` only when the user explicitly asks to contact Mercator maintainers, after
-  showing the approved summary and removing sensitive data.
+  zero-spend REST handoff so the original job payer authorizes the review.
+- Draft `send_product_feedback` after one safe recovery fails or an unexpected terminal job failure
+  occurs. Never submit or pay again merely to reproduce it. Return failures and partial results.
+- Do not treat ordinary validation, funding, authorization, rate-limit, or empty-search outcomes as
+  product bugs.
+- Include the tool name, safe error code, reproduction steps, and expected/actual behavior.
+- Include `job_id` only when a related job exists. Never invent one or create a job for reporting.
+  The ID grants result access and is shared with maintainers.
+- Exclude secrets, credentials, payment material, personal data, and raw tool inputs or outputs.
+- Show the draft and ask to send unless the user already authorized reporting this issue. Wallet
+  authorization is not feedback consent.
+- Send at most once per issue. Stop after a decline. Never retry uncertain delivery automatically or
+  report feedback-tool failures.
 
-Read [examples](references/examples.md) for compound research, external actions, approval language,
+Read [examples](references/examples.md) for compound research, external actions, spending limits,
 MCP submission, status listening, and recovery patterns.
