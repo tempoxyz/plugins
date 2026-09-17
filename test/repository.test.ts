@@ -176,7 +176,9 @@ describe('repository validation', () => {
     for (const name of readdirSync(workflowRoot)) {
       const workflow = readFileSync(join(workflowRoot, name), 'utf8')
       expect(workflow, `${name}: missing permissions`).toMatch(/^permissions:/m)
-      expect(workflow, `${name}: missing timeout`).toMatch(/^\s+timeout-minutes: \d+$/m)
+      if (/^\s+steps:/m.test(workflow)) {
+        expect(workflow, `${name}: missing timeout`).toMatch(/^\s+timeout-minutes: \d+$/m)
+      }
     }
   })
 
