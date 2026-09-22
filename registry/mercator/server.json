@@ -7,7 +7,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://mercator.tempo.xyz/mcp/auth"
+      "url": "https://mercator.sh/mcp/auth"
     }
   ]
 }

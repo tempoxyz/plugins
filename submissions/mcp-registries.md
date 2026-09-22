@@ -17,7 +17,7 @@ Publish the hosted URLs:
 
 ```bash
 smithery mcp publish "https://mcp.tempo.xyz" -n @tempoxyz/docs
-smithery mcp publish "https://mercator.tempo.xyz/mcp/auth" -n @tempoxyz/mercator
+smithery mcp publish "https://mercator.sh/mcp/auth" -n @tempoxyz/mercator
 ```
 
 Tempo Docs should scan without authentication. Mercator requires an OAuth

@@ -103,7 +103,7 @@ export const plugins: readonly PluginDefinition[] = [
     codexVersionSuffix: 'codex.20260902183800',
     description: 'Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.',
     displayName: 'Mercator',
-    homepage: 'https://mercator.tempo.xyz/',
+    homepage: 'https://mercator.sh/',
     keywords: ['api', 'current-data', 'mercator', 'mcp', 'paid-services', 'payments', 'tempo'],
     category: 'Productivity',
     claudeCategory: 'research',
@@ -112,7 +112,7 @@ export const plugins: readonly PluginDefinition[] = [
       shortDescription: 'Discover, quote, and run paid API workflows',
       longDescription: 'Connect agents to current data and paid APIs through one remote MCP server. Authorize a limited Tempo Wallet key once; no CLI or wallet key is installed in the agent VM.',
       capabilities: ['Interactive', 'Read', 'Write'],
-      websiteURL: 'https://mercator.tempo.xyz/',
+      websiteURL: 'https://mercator.sh/',
       defaultPrompt: [
         'Rescue my canceled Boston-to-London flight under $1,200; add a hotel and transfer if needed, then email the itinerary.',
         'Find 15 overlooked Boston HVAC businesses, verify owner emails, flag outdated sites, and map a route from Back Bay.',
@@ -122,7 +122,7 @@ export const plugins: readonly PluginDefinition[] = [
     },
     mcp: {
       serverName: 'mercator',
-      url: 'https://mercator.tempo.xyz/mcp/auth',
+      url: 'https://mercator.sh/mcp/auth',
       note: 'Mercator remote MCP for service discovery, live quotes, secure Tempo payments, and durable paid jobs.',
       registryDescription: 'Discover, quote, and run fresh external research and API workflows.',
     },
