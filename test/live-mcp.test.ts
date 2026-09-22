@@ -14,7 +14,7 @@ type Tool = {
 }
 
 const tempoDocsUrl = 'https://mcp.tempo.xyz'
-const mercatorUrl = 'https://mercator.tempo.xyz/mcp/auth'
+const mercatorUrl = 'https://mercator.sh/mcp/auth'
 
 describe('production MCP endpoints', () => {
   let requestId = 0

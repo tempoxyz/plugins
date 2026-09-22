@@ -2,7 +2,7 @@
   "name": "mercator",
   "version": "0.3.1+codex.20260902183800",
   "description": "Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.",
-  "homepage": "https://mercator.tempo.xyz/",
+  "homepage": "https://mercator.sh/",
   "repository": "https://github.com/tempoxyz/plugins",
   "license": "MIT",
   "keywords": [
@@ -32,7 +32,7 @@
       "Read",
       "Write"
     ],
-    "websiteURL": "https://mercator.tempo.xyz/",
+    "websiteURL": "https://mercator.sh/",
     "defaultPrompt": [
       "Rescue my canceled Boston-to-London flight under $1,200; add a hotel and transfer if needed, then email the itinerary.",
       "Find 15 overlooked Boston HVAC businesses, verify owner emails, flag outdated sites, and map a route from Back Bay.",
