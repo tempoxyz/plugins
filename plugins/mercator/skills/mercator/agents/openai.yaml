@@ -8,6 +8,6 @@ dependencies:
       value: "mercator"
       description: "Mercator service discovery and durable job execution"
       transport: "streamable_http"
-      url: "https://mercator.tempo.xyz/mcp/auth"
+      url: "https://mercator.sh/mcp/auth"
 policy:
   allow_implicit_invocation: true
