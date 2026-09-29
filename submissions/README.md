@@ -19,3 +19,12 @@ Only submit `docs` to the OpenAI directory. The paid digital-service and
 transaction workflows in `wallet` and `mercator` do not meet its commerce
 rules. They remain eligible for stores that permit and accurately disclose
 those capabilities.
+
+## ChatGPT extensions
+
+Mercator's MCP server exposes an MCP App with a sidebar wallet view and a
+thread job-history panel. Its Codex manifest sets
+`extensions["com.openai"].onboardingSkill` to `mercator-setup`. Test it in
+ChatGPT Developer mode by adding `https://mercator.sh/mcp/auth` as a plugin.
+Distribute it to a workspace through admin-only publishing, not the public
+directory, until its commerce eligibility changes.
