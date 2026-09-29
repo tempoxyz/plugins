@@ -28,6 +28,29 @@ afterEach(() => {
 })
 
 describe('compileManifests', () => {
+  it.each([
+    ['mercator', './skills/mercator-setup/SKILL.md'],
+    ['docs', undefined],
+    ['wallet', undefined],
+  ] as const)('should configure onboarding only when enabled for %s', (name, skill) => {
+    const files = compileManifests()
+    const manifest = JSON.parse(files.get(`plugins/${name}/.codex-plugin/plugin.json`)!)
+
+    expect(manifest.extensions).toEqual(
+      skill ? { 'com.openai': { onboardingSkill: skill } } : undefined,
+    )
+    if (skill) {
+      expect(readFileSync(join(root, 'plugins', name, skill), 'utf8'))
+        .toMatch(/^name: mercator-setup$/m)
+    }
+
+    for (const platform of ['', '.claude-plugin/', '.cursor-plugin/']) {
+      const portable = JSON.parse(files.get(`plugins/${name}/${platform}plugin.json`)!)
+      expect(portable).not.toHaveProperty('extensions')
+      expect(portable).not.toHaveProperty('onboardingSkill')
+    }
+  })
+
   it('should match every golden platform manifest', () => {
     // Arrange
     const goldenFiles = readTree(goldenRoot)

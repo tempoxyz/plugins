@@ -9,6 +9,8 @@ export type PluginDefinition = {
   category: string
   claudeCategory: string
   icon: string
+  /** Packaged skill that ChatGPT and Codex run after installation. */
+  onboardingSkill?: string
   interface: {
     shortDescription: string
     longDescription: string
@@ -100,7 +102,7 @@ export const plugins: readonly PluginDefinition[] = [
   {
     name: 'mercator',
     version: '0.3.1',
-    codexVersionSuffix: 'codex.20260902183800',
+    codexVersionSuffix: 'codex.20260929120000',
     description: 'Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.',
     displayName: 'Mercator',
     homepage: 'https://mercator.sh/',
@@ -108,6 +110,7 @@ export const plugins: readonly PluginDefinition[] = [
     category: 'Productivity',
     claudeCategory: 'research',
     icon: 'favicon.svg',
+    onboardingSkill: './skills/mercator-setup/SKILL.md',
     interface: {
       shortDescription: 'Discover, quote, and run paid API workflows',
       longDescription: 'Connect agents to current data and paid APIs through one remote MCP server. Authorize a limited Tempo Wallet key once; no CLI or wallet key is installed in the agent VM.',
