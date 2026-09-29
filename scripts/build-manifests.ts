@@ -77,6 +77,9 @@ export const compileManifests = (): ReadonlyMap<string, string> => {
         : plugin.version,
       author: catalog.author,
       ...componentPaths,
+      ...(plugin.onboardingSkill
+        ? { extensions: { 'com.openai': { onboardingSkill: plugin.onboardingSkill } } }
+        : {}),
       interface: {
         displayName: plugin.displayName,
         shortDescription: plugin.interface.shortDescription,
