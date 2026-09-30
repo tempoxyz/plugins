@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "wallet",
   "displayName": "Tempo Wallet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
   "author": {
     "name": "Tempo"
@@ -16,5 +16,6 @@
     "mpp",
     "payments"
   ],
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
 }

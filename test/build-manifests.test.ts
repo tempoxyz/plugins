@@ -135,14 +135,15 @@ describe('findManifestDrift', () => {
     // Arrange
     const directory = temporaryDirectory()
     writeManifests(directory)
-    const path = join(directory, 'plugins/wallet/mcp.json')
+    const path = join(directory, 'plugins/retired/mcp.json')
+    mkdirSync(dirname(path), { recursive: true })
     writeFileSync(path, '{}\n')
 
     // Act
     const drift = findManifestDrift(directory)
 
     // Assert
-    expect(drift).toContain('plugins/wallet/mcp.json: unexpected')
+    expect(drift).toContain('plugins/retired/mcp.json: unexpected')
   })
 })
 

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tempo-wallet": {
+      "type": "http",
+      "url": "https://wallet.tempo.xyz/mcp",
+      "note": "Tempo Wallet remote MCP for account reads and wallet JSON-RPC requests approved in the browser."
+    }
+  }
+}
