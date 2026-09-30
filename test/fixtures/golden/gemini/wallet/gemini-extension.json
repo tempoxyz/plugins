@@ -1,5 +1,11 @@
 {
   "name": "wallet",
-  "version": "0.1.0",
-  "description": "Set up Tempo Wallet and make explicitly approved paid API requests."
+  "version": "0.2.0",
+  "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
+  "mcpServers": {
+    "tempo-wallet": {
+      "httpUrl": "https://wallet.tempo.xyz/mcp",
+      "timeout": 600000
+    }
+  }
 }

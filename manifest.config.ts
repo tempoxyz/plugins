@@ -76,7 +76,7 @@ export const plugins: readonly PluginDefinition[] = [
   },
   {
     name: 'wallet',
-    version: '0.1.0',
+    version: '0.2.0',
     description: 'Set up Tempo Wallet and make explicitly approved paid API requests.',
     displayName: 'Tempo Wallet',
     homepage: 'https://tempo.xyz/developers/docs/wallet/use-with-agents',
@@ -97,6 +97,12 @@ export const plugins: readonly PluginDefinition[] = [
         'Preview the cost of this paid API request.',
       ],
       brandColor: '#000000',
+    },
+    mcp: {
+      serverName: 'tempo-wallet',
+      url: 'https://wallet.tempo.xyz/mcp',
+      note: 'Tempo Wallet remote MCP for account reads and wallet JSON-RPC requests approved in the browser.',
+      registryDescription: 'Connect a Tempo Wallet account and request passkey-approved wallet actions.',
     },
   },
   {
