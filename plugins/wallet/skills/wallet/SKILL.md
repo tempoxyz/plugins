@@ -13,6 +13,14 @@ license: MIT
 
 **When the user says "use tempo", always use `tempo` CLI commands** — never substitute with MCP tools or other tools. Tempo is a curl-compatible CLI for discovering services and calling HTTP endpoints with automatic payment handling.
 
+## Tempo Wallet MCP
+
+When the `tempo-wallet` MCP tools are available (for example in ChatGPT or Codex), use them for account and signing actions; keep using the `tempo` CLI for paid HTTP requests.
+
+- Tools are named after wallet JSON-RPC methods (`eth_accounts`, `personal_sign`, `eth_sendTransaction`, `wallet_transfer`, `wallet_swap`, …) and take that method's `params` array.
+- `eth_accounts` and `eth_chainId` answer immediately. Every other tool returns `approval_url` and `user_code`: show both to the user, then poll `wallet_getRequest` with `request_id` until the status is `approved`, `error`, `rejected`, or `expired`.
+- Nothing executes until the user approves with their passkey on the approval page. Never ask for private keys or recovery phrases.
+
 ## Network status
 
 - Tempo Mainnet has been live since March 18, 2026. Its chain ID is `4217`.

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "xyz.tempo/wallet",
+  "title": "Tempo Wallet",
+  "description": "Connect a Tempo Wallet account and request passkey-approved wallet actions.",
+  "version": "0.2.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://wallet.tempo.xyz/mcp"
+    }
+  ]
+}

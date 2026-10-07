@@ -1,6 +1,6 @@
 {
   "name": "wallet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
   "homepage": "https://tempo.xyz/developers/docs/wallet/use-with-agents",
   "repository": "https://github.com/tempoxyz/plugins",
@@ -17,6 +17,7 @@
     "url": "https://tempo.xyz"
   },
   "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Tempo Wallet",
     "shortDescription": "Use Tempo Wallet with explicit approvals.",

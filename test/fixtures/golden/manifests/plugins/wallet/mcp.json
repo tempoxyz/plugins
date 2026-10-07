@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "tempo-wallet": {
+      "type": "streamable-http",
+      "url": "https://wallet.tempo.xyz/mcp"
+    }
+  }
+}
