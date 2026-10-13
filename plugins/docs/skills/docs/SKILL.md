@@ -5,7 +5,7 @@ description: >
   Tempo into an app, reviewing Tempo code, or answering developer questions
   about accounts, passkeys, stablecoin payments, fee sponsorship, MPP, the
   Tempo API, indexer queries, stablecoin issuance, the Stablecoin DEX, contract
-  verification, SDKs, or Tempo protocol concepts.
+  verification, SDKs, node operations, changelog, or Tempo protocol concepts.
 license: MIT
 ---
 
@@ -39,6 +39,11 @@ action requires a separate tool or plugin.
 | Stablecoin DEX swaps or liquidity | `/guide/stablecoin-dex`, `/protocol/exchange` |
 | Contract deployment or verification | `/quickstart/verify-contracts` |
 | Low-level protocol behavior | `/protocol`, then the relevant transactions, fees, TIP-20, exchange, or zones spec |
+| Node operations | [Nodes](https://tempo.xyz/developers/docs/guide/node): installation, RPC and validator operations, security, monitoring, failover, and operator updates |
+| Network upgrades or node releases | [Changelog](https://tempo.xyz/developers/docs/protocol/upgrades): activation timelines, integration impact, and [node software releases](https://tempo.xyz/developers/docs/changelog) |
+
+Nodes and Changelog have their own documentation sections and sidebars. Use Tempo
+EVM for application development, chain behavior, and protocol specifications.
 
 Read the relevant page before answering an integration question or changing
 code. Use the docs page’s linked examples when available.
@@ -73,3 +78,5 @@ code. Use the docs page’s linked examples when available.
 - Tempo API: `https://tempo.xyz/developers/docs/api`
 - SDKs: `https://tempo.xyz/developers/docs/sdk`
 - Protocol specs: `https://tempo.xyz/developers/docs/protocol`
+- Nodes: `https://tempo.xyz/developers/docs/guide/node`
+- Changelog: `https://tempo.xyz/developers/docs/protocol/upgrades`
