@@ -1,0 +1,8 @@
+# Allow only the main-branch skill sync workflow to open its generated
+# update pull requests in this repository.
+subject: repo:tempoxyz@211589300/plugins@1356140289:ref:refs/heads/main
+claim_pattern:
+  job_workflow_ref: tempoxyz/plugins/\.github/workflows/sync-skills\.yml@refs/heads/main
+permissions:
+  contents: write
+  pull_requests: write

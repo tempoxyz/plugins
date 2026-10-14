@@ -1,0 +1,32 @@
+{
+  "skills": [
+    {
+      "name": "docs",
+      "plugin": "docs",
+      "repo": "tempoxyz/docs",
+      "path": "SKILL.md",
+      "ref": "main"
+    },
+    {
+      "name": "wallet",
+      "plugin": "wallet",
+      "repo": "tempoxyz/wallet-cli",
+      "path": "SKILL.md",
+      "ref": "release"
+    },
+    {
+      "name": "mercator",
+      "plugin": "mercator",
+      "repo": "tempoxyz/mercator",
+      "path": "skills/mercator",
+      "ref": "main"
+    },
+    {
+      "name": "mercator-setup",
+      "plugin": "mercator",
+      "repo": "tempoxyz/mercator",
+      "path": "skills/mercator-setup",
+      "ref": "main"
+    }
+  ]
+}

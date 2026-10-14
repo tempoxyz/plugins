@@ -43,7 +43,14 @@ the independently versioned plugin releases.
 - Production MCP endpoints are smoke-tested daily.
 - All changes must pass validation and use signed commits.
 - Use the canonical Tempo and Mercator brand assets.
-- The Mercator skill is generated upstream. Do not edit its generated copy.
-- Upstream Mercator changes arrive through signed synchronization pull requests.
+- Skills under `plugins/*/skills/` are generated from the repositories listed
+  in [`skills.json`](./skills.json). Edit the source repository, not the copy;
+  CI rejects copies that no longer match `skills.lock.json`.
+- `.github/workflows/sync-skills.yml` opens one signed pull request per plugin
+  when a source changes, bumps that plugin's patch version, and merges once
+  validation passes.
+- To distribute a new skill, add an entry to `skills.json`. A private source
+  repository also needs a `.github/sts/skill-sync-read.sts.yaml` read policy;
+  see the [skill-sync action](https://github.com/tempoxyz/gh-actions/tree/main/actions/skill-sync).
 - Report marketplace compatibility changes through an issue and update the
   corresponding manifest, test, and submission notes together.

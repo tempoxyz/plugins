@@ -62,7 +62,7 @@ describe('repository validation', () => {
 
   test('Tempo Docs skill stays read-only', () => {
     const skill = readFileSync(join(root, 'plugins/docs/skills/docs/SKILL.md'), 'utf8')
-    expect(skill).toMatch(/This plugin is read-only/)
+    expect(skill).toMatch(/This (plugin|skill) is read-only/)
     expect(skill).toMatch(/must not install software/)
   })
 
@@ -139,6 +139,21 @@ describe('repository validation', () => {
   test('Mercator includes the complete canonical skill package', () => {
     expect(readFileSync(join(root, 'plugins/mercator/skills/mercator/agents/openai.yaml'), 'utf8'))
       .toMatch(/value: "mercator"/)
+  })
+
+  test('every synced skill ships in a cataloged plugin', () => {
+    const registry = readJson<{ skills: Array<{ name: string; plugin?: string }> }>('skills.json')
+    for (const skill of registry.skills) {
+      expect(pluginNames, skill.name).toContain(skill.plugin ?? skill.name)
+    }
+  })
+
+  test('skill sync trust is limited to its main-branch workflow', () => {
+    const policy = readFileSync(join(root, '.github/sts/skill-sync.sts.yaml'), 'utf8')
+    expect(policy).toMatch(/plugins@1356140289:ref:refs\/heads\/main/)
+    expect(policy).toMatch(/sync-skills\\\.yml@refs\/heads\/main/)
+    expect(policy).toMatch(/contents: write/)
+    expect(policy).toMatch(/pull_requests: write/)
   })
 
   test('Mercator sync trust is limited to its main-branch workflow', () => {

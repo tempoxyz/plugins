@@ -1,0 +1,101 @@
+name: Sync skills
+
+# Each plugin's skills are copied from the repositories listed in skills.json.
+# One pull request per plugin keeps a failing source from blocking the rest;
+# generated-only pull requests merge once validation passes.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [skill-source-updated]
+
+concurrency:
+  group: sync-skills
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  plugins:
+    name: List plugins
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      plugins: ${{ steps.list.outputs.plugins }}
+    steps:
+      - name: Secure runner
+        uses: tempoxyz/gh-actions/actions/secure-runner@55fe3b63d9612623cc51e6c62d9d62fbcb175fb0 # 2026-09-29T01-25-15Z-55fe3b63
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: list
+        run: echo "plugins=$(jq -c '[.skills[] | .plugin // .name] | unique' skills.json)" >> "$GITHUB_OUTPUT"
+
+  sync:
+    name: Sync ${{ matrix.plugin }}
+    needs: plugins
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        plugin: ${{ fromJSON(needs.plugins.outputs.plugins) }}
+    steps:
+      - name: Secure runner
+        uses: tempoxyz/gh-actions/actions/secure-runner@55fe3b63d9612623cc51e6c62d9d62fbcb175fb0 # 2026-09-29T01-25-15Z-55fe3b63
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Sync skills from their sources
+        id: sync
+        uses: tempoxyz/gh-actions/actions/skill-sync@060c0d9179e6a74462c1fcd0c9840c5416222029 # brendanjryan/skill-sync
+        with:
+          only: ${{ matrix.plugin }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        if: steps.sync.outputs.changed == 'true'
+        with:
+          node-version: 24
+          cache: npm
+      - name: Bump the plugin version and regenerate manifests
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          PLUGIN: ${{ matrix.plugin }}
+        run: |
+          npm ci --ignore-scripts
+          npx tsx scripts/bump-plugin-version.ts "$PLUGIN"
+          npm run build
+          npm run update:goldens
+      - name: Fetch GitHub token via STS
+        if: steps.sync.outputs.changed == 'true'
+        id: sts
+        uses: tempoxyz/gh-actions/actions/github-sts@55fe3b63d9612623cc51e6c62d9d62fbcb175fb0 # 2026-09-29T01-25-15Z-55fe3b63
+        with:
+          policy: skill-sync
+          ttl: 10m
+      - name: Open or update the sync pull request
+        if: steps.sync.outputs.changed == 'true'
+        uses: tempoxyz/gh-actions/actions/create-pull-request@3554f9435b9ff4da58e8931acc517c1a4814a7e2 # brendanjryan/create-pr-keep-open-prs
+        with:
+          token: ${{ steps.sts.outputs.token }}
+          branch: automation/sync-skills/${{ matrix.plugin }}
+          commit-message: "chore(${{ matrix.plugin }}): sync skills"
+          title: "chore(${{ matrix.plugin }}): sync skills"
+          body: |
+            Generated from `skills.json` by `.github/workflows/sync-skills.yml`. Edit the source, not these copies.
+
+            ${{ steps.sync.outputs.summary }}
+          add-paths: |
+            plugins/${{ matrix.plugin }}
+            registry/${{ matrix.plugin }}
+            skills.lock.json
+            manifest.config.ts
+            test/fixtures/golden
+          auto-merge: squash
