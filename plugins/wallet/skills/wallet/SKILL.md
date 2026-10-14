@@ -68,7 +68,7 @@ Starter prompts should be user-facing tasks (not command templates), for example
 
 - Select `SERVICE_ID` from search results that best matches user intent. When multiple match: prefer best semantic fit, then endpoint fit, then pricing clarity, then first in list.
 - **Anchor on `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>`** — it shows the exact URL, method, path, and pricing for every endpoint. Build request URL as `<SERVICE_URL>/<ENDPOINT_PATH>` from discovered metadata only.
-- If service details include `supportsCredits: true`, existing MPP Credits may still be spent on eligible one-time `tempo.charge` payments. Check the separate balance with `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits`. MPP Credits are deprecated and cannot be purchased; use `"$HOME/.tempo/bin/tempo" wallet fund --mach` to buy MACH instead. MACH purchases do not top up or convert legacy credits.
+- If service details include `supportsCredits: true`, existing MPP Credits may still be spent on eligible one-time `tempo.charge` payments. Check the separate balance with `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits`. MPP Credits are no longer available for purchase, but existing credits can still be redeemed. Use [MACH](https://wallet.tempo.xyz/agent) for new purchases. Open checkout with `"$HOME/.tempo/bin/tempo" wallet fund --mach`.
 - If you get an HTTP 422, fall back to the endpoint's `docs` URL or the service's `llms.txt` for exact field names.
 - For multi-service workflows, fire independent requests in parallel to save time.
 
@@ -118,7 +118,7 @@ matching request without `--dry-run`:
 | HTTP 422 on first request to a service | Wrong request schema — field names vary across services | Check `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>` for endpoint details, then fetch the endpoint's `docs` URL or the service's `llms.txt` for exact field names and types. |
 | Balance is 0, insufficient funds, or spending limit exceeded | Wallet needs funding or limit hit | Run `"$HOME/.tempo/bin/tempo" wallet fund` or direct user to the wallet dashboard. Report clearly and stop if limit is exceeded. |
 | Token balance is 0 but MPP Credits may be available | Credits are separate from token balances | Run `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits`. If the service shows `supportsCredits: true`, credits can be used for one-time charge payments. |
-| Need to buy MPP Credits | MPP Credits purchases have been retired | Explain the deprecation and use `"$HOME/.tempo/bin/tempo" wallet fund --mach` or [Buy MACH in Tempo Wallet](https://wallet.tempo.xyz/agent). Existing credits remain spendable; new purchases buy MACH. |
+| Need to buy MPP Credits | Purchases are retired | MPP Credits are no longer available for purchase, but existing credits can still be redeemed. Use [MACH](https://wallet.tempo.xyz/agent) for new purchases. |
 | Credits are not accepted by a service | MPP Credits only work for eligible Tempo-proxied services | Inspect `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>` and use credits only when `supportsCredits: true` is present. Otherwise use token funding with `"$HOME/.tempo/bin/tempo" wallet fund`. |
 | Service uses sessions | MPP Credits currently support one-time charges, not sessions | Use token funding for session-based services. |
 | Service not found for query | Search terms too narrow | Broaden search terms with `"$HOME/.tempo/bin/tempo" wallet -t services --search <broader_query>`, then inspect candidate details. |
