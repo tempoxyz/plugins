@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it, test } from 'vitest'
@@ -62,7 +62,7 @@ describe('repository validation', () => {
 
   test('Tempo Docs skill stays read-only', () => {
     const skill = readFileSync(join(root, 'plugins/docs/skills/docs/SKILL.md'), 'utf8')
-    expect(skill).toMatch(/This plugin is read-only/)
+    expect(skill).toMatch(/This (plugin|skill) is read-only/)
     expect(skill).toMatch(/must not install software/)
   })
 
@@ -139,6 +139,31 @@ describe('repository validation', () => {
   test('Mercator includes the complete canonical skill package', () => {
     expect(readFileSync(join(root, 'plugins/mercator/skills/mercator/agents/openai.yaml'), 'utf8'))
       .toMatch(/value: "mercator"/)
+  })
+
+  test('every synced skill ships in a cataloged plugin', () => {
+    const registry = readJson<{ skills: Array<{ name: string; plugin?: string }> }>('skills.json')
+    for (const skill of registry.skills) {
+      expect(pluginNames, skill.name).toContain(skill.plugin ?? skill.name)
+    }
+  })
+
+  test.each(pluginNames)('skill sync stages only paths that exist for %s', (name) => {
+    const workflow = readFileSync(join(root, '.github/workflows/sync-skills.yml'), 'utf8')
+    const addPaths = /add-paths: \|\n((?: {12}.+\n)+)/.exec(workflow)?.[1]
+    expect(addPaths).toBeDefined()
+    for (const pathspec of addPaths!.trim().split('\n')) {
+      const path = pathspec.trim().replace('${{ matrix.plugin }}', name)
+      expect(existsSync(join(root, path)), path).toBe(true)
+    }
+  })
+
+  test('skill sync trust is limited to its main-branch workflow', () => {
+    const policy = readFileSync(join(root, '.github/sts/skill-sync.sts.yaml'), 'utf8')
+    expect(policy).toMatch(/plugins@1356140289:ref:refs\/heads\/main/)
+    expect(policy).toMatch(/sync-skills\\\.yml@refs\/heads\/main/)
+    expect(policy).toMatch(/contents: write/)
+    expect(policy).toMatch(/pull_requests: write/)
   })
 
   test('Mercator sync trust is limited to its main-branch workflow', () => {

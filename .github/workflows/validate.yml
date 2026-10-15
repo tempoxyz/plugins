@@ -29,6 +29,10 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - name: Check generated skills
+        uses: tempoxyz/gh-actions/actions/skill-sync@caf7c59ea3a8359618ca5640d123a161a2a87721 # 2026-10-15T17-04-41Z-caf7c59e
+        with:
+          mode: check
       - run: npm ci --ignore-scripts
       - run: npm test
       - name: Validate Claude marketplace
