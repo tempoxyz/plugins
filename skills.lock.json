@@ -2,6 +2,16 @@
   "version": 1,
   "skills": [
     {
+      "name": "docs",
+      "plugin": "docs",
+      "repo": "tempoxyz/docs",
+      "path": "public/SKILL.md",
+      "ref": "main",
+      "commit": "e39028460f7b0a23f0dffb489dd5c312693814d8",
+      "digest": "sha256:88e7d2276c8e2b901f08f969bdb4e5d36bf92b4988a1756319b831e9d99b74c0",
+      "dest": "plugins/docs/skills/docs"
+    },
+    {
       "name": "mercator",
       "plugin": "mercator",
       "repo": "tempoxyz/mercator",

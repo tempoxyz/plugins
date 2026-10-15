@@ -45,7 +45,7 @@ export const catalog = {
 export const plugins: readonly PluginDefinition[] = [
   {
     name: 'docs',
-    version: '0.1.0',
+    version: '0.1.1',
     description: 'Read Tempo documentation and use its examples while building on Tempo.',
     displayName: 'Tempo Docs',
     homepage: 'https://tempo.xyz/developers/docs/guide/using-tempo-with-ai',

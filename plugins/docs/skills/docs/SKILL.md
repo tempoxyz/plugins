@@ -1,75 +1,66 @@
 ---
 name: docs
-description: >
-  Read Tempo documentation when building applications on Tempo, integrating
-  Tempo into an app, reviewing Tempo code, or answering developer questions
-  about accounts, passkeys, stablecoin payments, fee sponsorship, MPP, the
-  Tempo API, indexer queries, stablecoin issuance, the Stablecoin DEX, contract
-  verification, SDKs, or Tempo protocol concepts.
-license: MIT
+description: Find and explain official Tempo documentation for stablecoin accounts and payments, passkeys, fee sponsorship, TIP-20 issuance, the Stablecoin DEX, Earn, Routes, Zones, Machine Payments (MPP), Tempo EVM contracts, nodes and network upgrades, the Tempo API and indexer, SDKs, CLI tools, and partner integrations. Use when building on Tempo, integrating or reviewing Tempo code, or answering Tempo developer and protocol questions.
+license: MIT OR Apache-2.0
 ---
 
 # Tempo Docs
 
-Use this skill to build applications on Tempo. Prefer `search`, `find_pages`,
-`read_page`, and `code` from the hosted MCP server at
-`https://mcp.tempo.xyz`; if MCP is unavailable, read the relevant page from
-`https://tempo.xyz/developers` or append `.md` to the docs URL. Do not guess current
-RPC URLs, contract addresses, chain IDs, package APIs, or protocol details;
-verify them from docs before writing code.
+Use the documentation for the reader's task. Start with a product guide, then read the API, SDK, or protocol reference needed to implement it. Do not guess RPC or service URLs, contract addresses, chain IDs, fee tokens, package APIs, or protocol details; verify them from the docs before answering or writing code.
 
-This plugin is read-only. It may retrieve and explain documentation, but it
-must not install software, authenticate or fund wallets, call paid services,
-sign messages or transactions, or submit transactions. When a user requests
-one of those actions, provide the relevant documentation and state that the
-action requires a separate tool or plugin.
+This skill is read-only. It may retrieve and explain documentation, but it must not install software, authenticate or fund wallets, change keys or credentials, call paid services, sign messages or transactions, or submit transactions. Those actions require a separate tool or plugin. To set up the Tempo CLI and Tempo Wallet, fund a wallet, or make paid requests, switch to the Tempo CLI skill at `https://tempo.xyz/SKILL.md`, which performs that setup. For other actions, link the relevant documentation and name the tool that performs them, such as the paid tools in [Build with AI](https://tempo.xyz/developers/docs/guide/using-tempo-with-ai.md).
 
-## Routing
+## Choose the documentation section
 
-| User is building... | Start with |
-|---|---|
-| A new Tempo app or network setup | `/quickstart/integrate-tempo`, `/quickstart/connection-details`, `/sdk` |
-| Wallet UX | `/quickstart/wallet-developers`, `/quickstart/connection-details`, `/sdk` |
-| Stablecoin payments | `/guide/payments`, especially send, accept, virtual addresses, memos, fees, sponsorship, and parallel transactions |
-| Sponsored or gasless transactions | `/guide/payments/sponsor-user-fees`, `/api/fee-payer` |
-| MPP or paid APIs | `/guide/machine-payments`, then `/guide/machine-payments/client`, `/server`, or `/agent` |
-| Agent-paid service calls | `/guide/machine-payments/agent`; provide documentation only |
-| Hosted indexer queries | `/api/indexer-api` |
-| Stablecoin issuance | `/guide/issuance`, `/protocol/tip20/overview`, `/protocol/tip20/spec` |
-| Stablecoin DEX swaps or liquidity | `/guide/stablecoin-dex`, `/protocol/exchange` |
-| Contract deployment or verification | `/quickstart/verify-contracts` |
-| Low-level protocol behavior | `/protocol`, then the relevant transactions, fees, TIP-20, exchange, or zones spec |
+All links below use the canonical docs mount at `https://tempo.xyz/developers`.
 
-Read the relevant page before answering an integration question or changing
-code. Use the docs page’s linked examples when available.
+| Section | Start here when the reader wants to… |
+| --- | --- |
+| [Get Started](https://tempo.xyz/developers/get-started.md) | Choose an integration, send a first test payment, get testnet funds, connect a coding agent, or find the SDKs and CLI. |
+| [Accounts](https://tempo.xyz/developers/docs/accounts.md) | Create accounts, connect wallets, read balances, send or receive payments, and reconcile customer deposits. |
+| [Earn](https://tempo.xyz/developers/docs/earn.md) | Choose a vault, deposit stablecoins, read positions, or withdraw. Earn is in beta; check access on the introduction page. |
+| [Routes](https://tempo.xyz/developers/docs/routes.md) | Accept cross-network deposits, quote transfers, or track delivery. Routes is in beta; check access on the introduction page. |
+| [Zones](https://tempo.xyz/developers/docs/zones.md) | Connect to a Zone and work with private balances, deposits, or withdrawals. Zones is in limited preview; check access on the introduction page. |
+| [Machine Payments](https://tempo.xyz/developers/docs/agents.md) | Pay for APIs, accept API payments, discover services, or integrate MPP. |
+| [Tempo EVM](https://tempo.xyz/developers/docs/development.md) | Build wallet support, manage signing keys, use transactions and fees, issue TIP-20 Tokens, deploy contracts, exchange stablecoins, run nodes, or read protocol specifications and changelog. |
+| [API reference](https://tempo.xyz/developers/docs/api.md) | Find Tempo API endpoints by product, authentication, Console management endpoints, JSON-RPC, and the indexer. |
+| [Partners](https://tempo.xyz/developers/docs/partners.md) | Find third-party wallets, bridges, RPC infrastructure, data services, and integrations. |
 
-## Implementation Defaults
+Accounts covers application payment workflows; Tempo EVM covers the chain capabilities behind them. Routes covers cross-network movement. The API reference supplements product guides with exact endpoints and schemas. SDKs and the CLI are under Get Started.
 
-- Prefer TypeScript examples for web apps, using the Tempo SDK pages and the
-  repo’s existing Wagmi/Viem patterns.
-- Prefer Foundry examples for Solidity contracts and contract verification.
-- For production examples, use the current Tempo Mainnet details from the docs. Use Tempo Testnet only when the user requests it or a development workflow explicitly requires it.
-- Treat `pathUSD` as a live mainnet TIP-20 stablecoin. Distinguish production `pathUSD` from faucet-issued testnet tokens.
-- When network intent is unclear, verify the current connection details and name the selected network explicitly.
-- For production-oriented changes, check the production, security, or Tempo
-  API docs before recommending defaults.
+Within Tempo EVM, node operators start at [Run a node](https://tempo.xyz/developers/docs/guide/node.md). For network upgrades and activation timelines, read [Changelog](https://tempo.xyz/developers/docs/protocol/upgrades.md); for node software versions, read [Node releases](https://tempo.xyz/developers/docs/changelog.md).
 
-## Critical Rules
+Use current Zones pages before the earlier `/docs/guide/private-zones` sandbox walkthroughs. That sandbox uses a separate integration and does not establish which operations are available in the limited preview.
 
-- Never invent Tempo addresses, fee tokens, RPC endpoints, sponsor URLs, or
-  verifier URLs. Fetch them from docs.
-- For transfer memos, preserve the documented 32-byte memo constraint and use
-  them for reconciliation metadata such as invoice IDs or payment references.
-- For access keys, keep scopes and spending limits narrow. Do not use access
-  keys for contract deployment flows unless the docs explicitly support it.
+## Find and read the evidence
 
-## Useful Docs
+Prefer the hosted MCP server at `https://mcp.tempo.xyz` when available:
 
-- Getting started: `https://tempo.xyz/developers/docs/quickstart/integrate-tempo`
-- Connection details: `https://tempo.xyz/developers/docs/quickstart/connection-details`
-- Wallet: `https://tempo.xyz/developers/docs/wallet`
-- Payments: `https://tempo.xyz/developers/docs/guide/payments`
-- Machine payments: `https://tempo.xyz/developers/docs/guide/machine-payments`
-- Tempo API: `https://tempo.xyz/developers/docs/api`
-- SDKs: `https://tempo.xyz/developers/docs/sdk`
-- Protocol specs: `https://tempo.xyz/developers/docs/protocol`
+| Tool | Use it to… |
+| --- | --- |
+| `search` | Search Tempo and related documentation. |
+| `find_pages` | Find matching page URLs from a source index. |
+| `read_page` | Read a documentation page using its returned source and path or URL. |
+| `code` | Combine multiple documentation lookups. |
+
+Read the relevant pages before answering or changing code. If MCP is unavailable, read pages from `https://tempo.xyz/developers` directly. The hosted MCP index can lag a branch or deployment: if a section is missing or the result uses older navigation, fetch the documentation from the site being reviewed. A missing search result does not mean a product is unavailable.
+
+- [Documentation index](https://tempo.xyz/developers/llms.txt): every page grouped by the current navigation.
+- [Full documentation](https://tempo.xyz/developers/llms-full.txt): all exported pages with their section and source URL. Prefer individual pages for focused questions.
+- Markdown pages: append `.md` to a page URL, for example `https://tempo.xyz/developers/docs/accounts/balances.md`. Strip a trailing slash first. Use the HTTP or browsing tool available in your environment.
+
+For MPP behavior, cross-check [MPP documentation](https://mpp.dev/llms.txt). For exact SDK methods, read the relevant Viem, Wagmi, or Accounts reference returned by MCP or linked from the page.
+
+## Keep answers grounded
+
+- Check network, availability, authentication, supported operations, and response shapes on the relevant page. A product plan or earlier sandbox example is not evidence of current availability.
+- Tempo Mainnet uses chain ID `4217`. Moderato is Tempo Testnet, with chain ID `42431`. Read RPC and explorer URLs from [Network details](https://tempo.xyz/developers/docs/quickstart/connection-details.md). Use Mainnet for production examples and Testnet only when the reader asks or the workflow requires it; when the network is unclear, name the one you chose.
+- `pathUSD` is live on Tempo Mainnet. Faucet-issued `pathUSD` on Tempo Testnet shares its address but is testnet money; do not confuse it with a mainnet balance or asset.
+- An API key authenticates API requests. Account signing keys and access keys authorize onchain transactions. They are not interchangeable.
+- Keep access-key expiry, spending limits, and call scopes as narrow as the task allows. Access keys cannot sign a top-level contract creation.
+- Transfer memos are 32 bytes, not 32 characters. Use them for short reconciliation references such as invoice or order IDs.
+- Prefer the short Viem example on a task page; use CLI, Wagmi, Foundry, or runnable API examples when they fit the reader's environment, and match the reader's existing code patterns. Follow the linked client setup instead of inventing missing configuration.
+- Interactive walkthroughs run on the web page. Markdown exports describe the steps and link to references; they do not execute transactions.
+- Keep explanations concise. Link the pages supporting the answer and state any unverified behavior.
+
+The only write this skill supports is documentation feedback, and only when the user asks: send sanitized feedback to `https://tempo.xyz/developers/api/feedback` with `source: "mcp"`, `message`, and relevant `toolName` or `relatedResource`.
