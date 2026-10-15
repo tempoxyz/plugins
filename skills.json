@@ -4,7 +4,7 @@
       "name": "docs",
       "plugin": "docs",
       "repo": "tempoxyz/docs",
-      "path": "SKILL.md",
+      "path": "public/SKILL.md",
       "ref": "main"
     },
     {
