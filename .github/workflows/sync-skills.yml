@@ -94,7 +94,7 @@ jobs:
             ${{ steps.sync.outputs.summary }}
           add-paths: |
             plugins/${{ matrix.plugin }}
-            registry/${{ matrix.plugin }}
+            registry
             skills.lock.json
             manifest.config.ts
             test/fixtures/golden

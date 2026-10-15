@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it, test } from 'vitest'
@@ -145,6 +145,16 @@ describe('repository validation', () => {
     const registry = readJson<{ skills: Array<{ name: string; plugin?: string }> }>('skills.json')
     for (const skill of registry.skills) {
       expect(pluginNames, skill.name).toContain(skill.plugin ?? skill.name)
+    }
+  })
+
+  test.each(pluginNames)('skill sync stages only paths that exist for %s', (name) => {
+    const workflow = readFileSync(join(root, '.github/workflows/sync-skills.yml'), 'utf8')
+    const addPaths = /add-paths: \|\n((?: {12}.+\n)+)/.exec(workflow)?.[1]
+    expect(addPaths).toBeDefined()
+    for (const pathspec of addPaths!.trim().split('\n')) {
+      const path = pathspec.trim().replace('${{ matrix.plugin }}', name)
+      expect(existsSync(join(root, path)), path).toBe(true)
     }
   })
 
