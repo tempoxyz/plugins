@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "docs",
   "displayName": "Tempo Docs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Read Tempo documentation and use its examples while building on Tempo.",
   "author": {
     "name": "Tempo"
