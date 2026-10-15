@@ -82,7 +82,7 @@ jobs:
           ttl: 10m
       - name: Open or update the sync pull request
         if: steps.sync.outputs.changed == 'true'
-        uses: tempoxyz/gh-actions/actions/create-pull-request@3554f9435b9ff4da58e8931acc517c1a4814a7e2 # brendanjryan/create-pr-keep-open-prs
+        uses: tempoxyz/gh-actions/actions/create-pull-request@a4fa1d51aa4014d86628f43b1dff8ba88219e04d # 2026-10-15T00-03-55Z-a4fa1d51
         with:
           token: ${{ steps.sts.outputs.token }}
           branch: automation/sync-skills/${{ matrix.plugin }}
