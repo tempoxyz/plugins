@@ -69,6 +69,7 @@ Starter prompts should be user-facing tasks (not command templates), for example
 - Select `SERVICE_ID` from search results that best matches user intent. When multiple match: prefer best semantic fit, then endpoint fit, then pricing clarity, then first in list.
 - **Anchor on `"$HOME/.tempo/bin/tempo" wallet -t services <SERVICE_ID>`** — it shows the exact URL, method, path, and pricing for every endpoint. Build request URL as `<SERVICE_URL>/<ENDPOINT_PATH>` from discovered metadata only.
 - If service details include `supportsCredits: true`, existing MPP Credits may still be spent on eligible one-time `tempo.charge` payments. Check the separate balance with `"$HOME/.tempo/bin/tempo" wallet -t whoami --credits`. MPP Credits are no longer available for purchase, but existing credits can still be redeemed. Use [MACH](https://wallet.tempo.xyz/agent#mach) for new purchases. Open checkout with `"$HOME/.tempo/bin/tempo" wallet fund --mach`.
+- MACH funding is mainnet-only. Before recommending it, check that the one-time charge advertises `machineTokenEnabled: true`; `supportsCredits` only indicates legacy-credit support. Session payments use the service's advertised token.
 - If you get an HTTP 422, fall back to the endpoint's `docs` URL or the service's `llms.txt` for exact field names.
 - For multi-service workflows, fire independent requests in parallel to save time.
 
