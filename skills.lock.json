@@ -17,8 +17,8 @@
       "repo": "tempoxyz/mercator",
       "path": "skills/mercator",
       "ref": "main",
-      "commit": "598f247026fbe99d87e10ccf1cef914918eb5389",
-      "digest": "sha256:2832e9166e61033bc8c16d7ecedb807c14f5e9dc8d95eef6f44c11fd478bc22e",
+      "commit": "2e55b901384c667ccca93be9871f21f0175b213a",
+      "digest": "sha256:9b15cd0fe0e1bbef5e8f9f5c66bf4c2037aface00d700276f052733b2b9097d8",
       "dest": "plugins/mercator/skills/mercator"
     },
     {
