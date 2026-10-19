@@ -1,7 +1,7 @@
 {
   "name": "docs",
   "displayName": "Tempo Docs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Read Tempo documentation and use its examples while building on Tempo.",
   "author": {
     "name": "Tempo"
