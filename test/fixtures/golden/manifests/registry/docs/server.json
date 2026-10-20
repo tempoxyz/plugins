@@ -3,7 +3,7 @@
   "name": "xyz.tempo/docs",
   "title": "Tempo Docs",
   "description": "Search and read current Tempo developer documentation.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "remotes": [
     {
       "type": "streamable-http",
