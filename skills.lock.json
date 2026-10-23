@@ -37,8 +37,8 @@
       "repo": "tempoxyz/wallet-cli",
       "path": "SKILL.md",
       "ref": "release",
-      "commit": "225ad5d7993df063008e26c2a8e1a40424b21b83",
-      "digest": "sha256:9843b8b6cf10e961450f4f58a79a315720dbd7c65fa6f91786c237bb2205c024",
+      "commit": "62d30c963c373eb4ffb2fc2c4146b1bb828f94bf",
+      "digest": "sha256:30cb1f2bc8598f8914c4ee7717739e95b2b00e9d553a8730fd74390a7421a57c",
       "dest": "plugins/wallet/skills/wallet"
     }
   ]

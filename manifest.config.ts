@@ -76,7 +76,7 @@ export const plugins: readonly PluginDefinition[] = [
   },
   {
     name: 'wallet',
-    version: '0.1.1',
+    version: '0.1.2',
     description: 'Set up Tempo Wallet and make explicitly approved paid API requests.',
     displayName: 'Tempo Wallet',
     homepage: 'https://tempo.xyz/developers/docs/wallet/use-with-agents',
