@@ -1,6 +1,6 @@
 {
   "name": "mercator",
-  "version": "0.3.2+codex.20260929120000",
+  "version": "0.3.3+codex.20260929120000",
   "description": "Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.",
   "homepage": "https://mercator.sh/",
   "repository": "https://github.com/tempoxyz/plugins",

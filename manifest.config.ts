@@ -101,7 +101,7 @@ export const plugins: readonly PluginDefinition[] = [
   },
   {
     name: 'mercator',
-    version: '0.3.2',
+    version: '0.3.3',
     codexVersionSuffix: 'codex.20260929120000',
     description: 'Discover, quote, and run paid API workflows through one secure MCP connection. Connect a Tempo Wallet once; no local CLI or wallet setup.',
     displayName: 'Mercator',

@@ -3,7 +3,7 @@
   "name": "xyz.tempo/mercator",
   "title": "Mercator",
   "description": "Discover, quote, and run fresh external research and API workflows.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "remotes": [
     {
       "type": "streamable-http",
