@@ -11,6 +11,14 @@ paid job or a local payment wallet.
 
 ## Connect or repair
 
+- **Diet Mercator (`https://mercator.sh/diet/mcp`):** keep this separate endpoint; do not use
+  the main wallet installer or request Tempo keys. Handle its connection-only OAuth in the
+  user's agent host and retain client/access/refresh state there. A hosted OAuth client can
+  handle its own validated redirect response; it does not need a callback on the user's device.
+  Follow [Diet setup](https://mercator.sh/docs#diet-mercator) for compatible Link clients and
+  the official Link CLI Balance-policy setup link. Ordinary card-checkout support alone does
+  not establish SPT support. Complete the Balance-policy steps below before calling automatic
+  payments ready.
 - Identify the user's app and mode first; ask if unclear. Do not infer local terminal access
   from the agent's ability to run commands in a sandbox.
 - **Claude Desktop chat or claude.ai:** direct the user to **Customize → Connectors → Add custom
@@ -46,6 +54,21 @@ curl -fsSL https://mercator.sh/install.sh | sh
 
 ## Verify and recover
 
+- For Diet, check the compatible Link client's authentication, Balance availability and spending
+  authority separately. Use the official Link CLI setup/payment skills when the host can run it;
+  inspect command schemas and reuse existing authorization rather than creating duplicate grants.
+  Keep payment credentials inside that host. A native Link connection may expose only card checkout.
+- Include policy setup in Diet onboarding when the user wants automatic Balance payments. Ask for
+  a finite per-purchase limit, explain that it is not a total task budget, and present the correct
+  app's official Link policy page for user review and approval. Reuse a verified existing policy;
+  never assume one exists from successful login. An approval-policy read `403` is inconclusive on
+  the tested CLI app, not proof of Stripe enablement or of missing authority. If authority cannot
+  be verified, guide the user to review the policy page. Do not invent public-key/client pairs,
+  enable authority for the user, or fall back to a card when Balance was requested.
+- After user approval, use the client's policy-based payment option (`--use-approval-policy` in
+  Link CLI) for authorized purchases within both the policy and task budget. Setup alone does
+  not authorize a paid acceptance test. Keep credentials for later requests and refresh normally;
+  cancellation stops without a purchase or repeated login attempts.
 - If an embedded browser cannot use the user's passkey, use **Continue in another browser** on
   Mercator's approval page. For an unreachable localhost callback, return the one-time completion
   link shown after approval to the same client. Use the client's documented code input or port
