@@ -66,11 +66,11 @@ curl -fsSL https://mercator.sh/install.sh | sh
   be verified, guide the user to review the policy page. Do not invent public-key/client pairs,
   enable authority for the user, or fall back to a card when Balance was requested.
 - Link keeps one approval policy per app: a Link CLI policy does not cover another client, such as
-  a Mercator Link (`https://mercator.link/mcp`) connection signed in to Link, whose
+  a Mercator via Link (`https://mercator.link/mcp`) connection signed in to Link, whose
   `get_connection_status` returns its own `policySetupUrl`. An `approval_policy_not_found` or
   "no approval policy is configured" response means that app has none; offer its policy page.
 - Pay from Link Balance first when the account has one (Link CLI: `--payment-method-id` with the
-  `BALANCE` method's ID); Link may refuse card-backed SPTs under $0.50. Mercator Link's managed
+  `BALANCE` method's ID); Link may refuse card-backed SPTs under $0.50. Mercator's managed Link
   payments pick Balance automatically.
 - After user approval, use the client's policy-based payment option (`--use-approval-policy` in
   Link CLI) for authorized purchases within both the policy and task budget. Setup alone does
