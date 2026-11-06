@@ -11,14 +11,11 @@ paid job or a local payment wallet.
 
 ## Connect or repair
 
-- **Diet Mercator (`https://mercator.sh/diet/mcp`):** keep this separate endpoint; do not use
-  the main wallet installer or request Tempo keys. Handle its connection-only OAuth in the
-  user's agent host and retain client/access/refresh state there. A hosted OAuth client can
-  handle its own validated redirect response; it does not need a callback on the user's device.
-  Follow [Diet setup](https://mercator.sh/docs#diet-mercator) for compatible Link clients and
-  the official Link CLI Balance-policy setup link. Ordinary card-checkout support alone does
-  not establish SPT support. Complete the Balance-policy steps below before calling automatic
-  payments ready.
+- **Diet Mercator (`https://mercator.sh/diet/mcp`) is retired.** Replace that connection with
+  Mercator via Link at `https://mercator.link/mcp`, following `https://mercator.link/skill.md`.
+  Do not use the main wallet installer or request Tempo keys for it. Ordinary card-checkout support
+  alone does not establish SPT support; complete the Balance-policy steps below before calling
+  automatic payments ready.
 - Identify the user's app and mode first; ask if unclear. Do not infer local terminal access
   from the agent's ability to run commands in a sandbox.
 - **Claude Desktop chat or claude.ai:** direct the user to **Customize → Connectors → Add custom
@@ -54,11 +51,11 @@ curl -fsSL https://mercator.sh/install.sh | sh
 
 ## Verify and recover
 
-- For Diet, check the compatible Link client's authentication, Balance availability and spending
+- For Link-paid connections, check the compatible Link client's authentication, Balance availability and spending
   authority separately. Use the official Link CLI setup/payment skills when the host can run it;
   inspect command schemas and reuse existing authorization rather than creating duplicate grants.
   Keep payment credentials inside that host. A native Link connection may expose only card checkout.
-- Include policy setup in Diet onboarding when the user wants automatic Balance payments. Ask for
+- Include policy setup in Link onboarding when the user wants automatic Balance payments. Ask for
   a finite per-purchase limit, explain that it is not a total task budget, and present the correct
   app's official Link policy page for user review and approval. Reuse a verified existing policy;
   never assume one exists from successful login. An approval-policy read `403` is inconclusive on
