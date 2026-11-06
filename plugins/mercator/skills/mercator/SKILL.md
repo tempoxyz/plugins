@@ -36,6 +36,12 @@ outcome. Follow the live tool schemas, descriptions, and returned next steps for
 execution, and recovery. These server-provided instructions are updated independently of this skill.
 If tools are unavailable, use `mercator-setup` or the host's native MCP connection controls.
 
+- Pass file inputs, such as audio to transcribe, as public URLs; never inline file contents in a plan.
+- Ask providers for URL outputs rather than inline base64 when they offer both.
+- Keep list inputs to about 10 items per call and split larger batches.
+- Prefer priced, healthy endpoints. After two failures of the same kind on one provider, stop
+  paying it and switch provider or report the failure.
+
 ## Feedback
 
 - When an unexpected failure persists after one safe recovery attempt, proactively draft a report
