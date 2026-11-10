@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Read Tempo documentation and use its examples while building on Tempo.",
   "mcpServers": {
     "docs": {
