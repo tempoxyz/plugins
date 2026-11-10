@@ -39,8 +39,11 @@ If tools are unavailable, use `mercator-setup` or the host's native MCP connecti
 - Pass file inputs, such as audio to transcribe, as public URLs; never inline file contents in a plan.
 - Ask providers for URL outputs rather than inline base64 when they offer both.
 - Keep list inputs to about 10 items per call and split larger batches.
-- Prefer priced, healthy endpoints. After two failures of the same kind on one provider, stop
-  paying it and switch provider or report the failure.
+- Prefer priced, healthy endpoints. Each result names its provider (`serviceId`, `serviceName`);
+  count providers, not results, before calling options limited.
+- After two failures of the same kind on one provider, stop paying it. Switch to another provider
+  in the results; if none fits, search again with `limit` up to 20 and the provider excluded
+  (for example, "without fal") before reporting the failure.
 
 ## Feedback
 
