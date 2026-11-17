@@ -7,8 +7,8 @@
       "repo": "tempoxyz/docs",
       "path": "public/SKILL.md",
       "ref": "main",
-      "commit": "7e84b157f93c355c138ad49ff9936236fb8eb1a4",
-      "digest": "sha256:45e79c7ecd60dd805c73b63f5a4496dbb6791a2dbdc828ef7dbd86196131559c",
+      "commit": "f619c6eb6a4838f892d6d2208374b6b2c780bf2c",
+      "digest": "sha256:3bfe3c31a6165c47da2eed6ea403fd0e71770abde74b7de8c12cca2862e7c509",
       "dest": "plugins/docs/skills/docs"
     },
     {
