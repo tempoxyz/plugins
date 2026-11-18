@@ -1,6 +1,6 @@
 ---
 name: mercator
-description: Use Mercator to discover, quote, and run fresh external research or API actions across extraction, enrichment, social, maps, travel, communications, media, financial, and on-chain data. Covers MCP job submission, durable status tracking, and recovery; not for installation or connection troubleshooting (mercator-setup), local files, repository work, supplied-content reasoning, or requests that forbid external or paid services.
+description: Use Mercator to discover, quote, and run fresh external research or API actions across extraction, enrichment, social, maps, travel, communications, media, financial, and on-chain data. Covers MCP and REST job submission, durable status tracking, and recovery; not for installation or connection troubleshooting (mercator-setup), local files, repository work, supplied-content reasoning, or requests that forbid external or paid services.
 license: MIT
 ---
 
@@ -36,6 +36,9 @@ outcome. Follow the live tool schemas, descriptions, and returned next steps for
 execution, and recovery. These server-provided instructions are updated independently of this skill.
 If tools are unavailable, use `mercator-setup` or the host's native MCP connection controls.
 
+Read [the MCP workflow](references/mcp.md) for the tool sequence, or
+[the REST workflow](references/rest.md) when calling `https://mercator.sh/v1` from code without MCP.
+
 - Pass file inputs, such as audio to transcribe, as public URLs; never inline file contents in a plan.
 - Ask providers for URL outputs rather than inline base64 when they offer both.
 - Keep list inputs to about 10 items per call and split larger batches.
@@ -44,6 +47,8 @@ If tools are unavailable, use `mercator-setup` or the host's native MCP connecti
 - After two failures of the same kind on one provider, stop paying it. Switch to another provider
   in the results; if none fits, search again with `limit` up to 20 and the provider excluded
   (for example, "without fal") before reporting the failure.
+- Confirm listed `effects`, such as orders, messages, uploads, or calls, with the user before
+  submitting. Mercator cannot undo them.
 
 ## Feedback
 
