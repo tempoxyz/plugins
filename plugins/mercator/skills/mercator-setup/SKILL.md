@@ -69,8 +69,9 @@ curl -fsSL https://mercator.sh/install.sh | sh
 - Pay from Link Balance first when the account has one (Link CLI: `--payment-method-id` with the
   `BALANCE` method's ID); Link may refuse card-backed SPTs under $0.50. Mercator's managed Link
   payments pick Balance automatically.
-- After user approval, use the client's policy-based payment option (`--use-approval-policy` in
-  Link CLI) for authorized purchases within both the policy and task budget. Setup alone does
+- After user approval, use the client's policy-based payment option for authorized purchases within
+  both the policy and task budget. Link CLI can't use approval policies today, so Link asks the
+  user about every Link CLI payment; a Mercator via Link connection uses its own policy. Setup alone does
   not authorize a paid acceptance test. Keep credentials for later requests and refresh normally;
   cancellation stops without a purchase or repeated login attempts.
 - If an embedded browser cannot use the user's passkey, use **Continue in another browser** on
