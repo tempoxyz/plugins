@@ -2,7 +2,7 @@
 <br>
 
 <p align="center">
-  <a href="https://tempo.xyz">
+  <a href="https://tempo.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tempo-wordmark-white.svg">
       <img alt="Tempo wordmark" src=".github/assets/tempo-wordmark-black.svg" width="360">
@@ -17,7 +17,7 @@
 
 Official plugins for building on Tempo with AI agents and developer tools. Install the documentation plugin as `docs@tempo`, then add product-specific plugins as needed.
 
-[tempo.xyz/developers](https://tempo.xyz/developers)
+[tempo.com/developers](https://tempo.com/developers)
 
 ## Plugins
 

@@ -3,7 +3,7 @@
   "name": "docs",
   "version": "0.1.9",
   "description": "Read Tempo documentation and use its examples while building on Tempo.",
-  "homepage": "https://tempo.xyz/developers/docs/guide/using-tempo-with-ai",
+  "homepage": "https://tempo.com/developers/docs/guide/using-tempo-with-ai",
   "repository": "https://github.com/tempoxyz/plugins",
   "license": "MIT",
   "keywords": [
@@ -15,6 +15,6 @@
   ],
   "author": {
     "name": "Tempo",
-    "url": "https://tempo.xyz"
+    "url": "https://tempo.com"
   }
 }
