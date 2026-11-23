@@ -55,7 +55,8 @@ Read [the MCP workflow](references/mcp.md) for the tool sequence, or
 - When an unexpected failure persists after one safe recovery attempt, proactively draft a report
   for `send_product_feedback`.
 - Include the tool or command, safe error code, any `error_id` and `request_id`, reproduction
-  steps, and expected versus actual behavior. Follow live tool schemas.
+  steps, and expected versus actual behavior. Set `agent_model` to your model ID when known.
+  Follow live tool schemas.
 - Exclude secrets, credentials, payment material, personal data, and raw inputs or outputs. Include
   a known job ID only when authorized; sharing it gives maintainers access to job results.
 - Show the draft and ask before sending unless the user already authorized reporting this issue.
