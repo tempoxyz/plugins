@@ -3,7 +3,7 @@
   "name": "wallet",
   "version": "0.1.2",
   "description": "Set up Tempo Wallet and make explicitly approved paid API requests.",
-  "homepage": "https://tempo.xyz/developers/docs/wallet/use-with-agents",
+  "homepage": "https://tempo.com/developers/docs/wallet/recipes#let-an-agent-pay-for-services",
   "repository": "https://github.com/tempoxyz/plugins",
   "license": "MIT",
   "keywords": [
@@ -14,6 +14,6 @@
   ],
   "author": {
     "name": "Tempo",
-    "url": "https://tempo.xyz"
+    "url": "https://tempo.com"
   }
 }

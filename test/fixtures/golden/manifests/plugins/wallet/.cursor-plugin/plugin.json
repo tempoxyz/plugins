@@ -6,7 +6,7 @@
   "author": {
     "name": "Tempo"
   },
-  "homepage": "https://tempo.xyz/developers/docs/wallet/use-with-agents",
+  "homepage": "https://tempo.com/developers/docs/wallet/recipes#let-an-agent-pay-for-services",
   "repository": "https://github.com/tempoxyz/plugins",
   "license": "MIT",
   "logo": "./assets/tempo-mark.svg",

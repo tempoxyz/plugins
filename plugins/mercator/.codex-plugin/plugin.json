@@ -17,7 +17,7 @@
   "author": {
     "name": "Tempo",
     "email": "support@tempo.xyz",
-    "url": "https://tempo.xyz"
+    "url": "https://tempo.com"
   },
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",

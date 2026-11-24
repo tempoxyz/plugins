@@ -38,7 +38,7 @@ export const catalog = {
   author: {
     name: 'Tempo',
     email: 'support@tempo.xyz',
-    url: 'https://tempo.xyz',
+    url: 'https://tempo.com',
   },
 } as const
 
@@ -48,7 +48,7 @@ export const plugins: readonly PluginDefinition[] = [
     version: '0.1.9',
     description: 'Read Tempo documentation and use its examples while building on Tempo.',
     displayName: 'Tempo Docs',
-    homepage: 'https://tempo.xyz/developers/docs/guide/using-tempo-with-ai',
+    homepage: 'https://tempo.com/developers/docs/guide/using-tempo-with-ai',
     keywords: ['tempo', 'documentation', 'mcp', 'stablecoins', 'payments'],
     category: 'Developer Tools',
     claudeCategory: 'development',
@@ -57,7 +57,7 @@ export const plugins: readonly PluginDefinition[] = [
       shortDescription: 'Read Tempo docs and integration examples.',
       longDescription: 'Search and read current Tempo documentation for SDKs, APIs, stablecoin payments, accounts, protocol concepts, and integration examples through a read-only MCP server.',
       capabilities: ['Read'],
-      websiteURL: 'https://tempo.xyz/developers',
+      websiteURL: 'https://tempo.com/developers',
       privacyPolicyURL: 'https://wallet.tempo.xyz/support/privacy-policy',
       termsOfServiceURL: 'https://wallet.tempo.xyz/support/terms-of-service',
       defaultPrompt: [
@@ -79,7 +79,7 @@ export const plugins: readonly PluginDefinition[] = [
     version: '0.1.2',
     description: 'Set up Tempo Wallet and make explicitly approved paid API requests.',
     displayName: 'Tempo Wallet',
-    homepage: 'https://tempo.xyz/developers/docs/wallet/use-with-agents',
+    homepage: 'https://tempo.com/developers/docs/wallet/recipes#let-an-agent-pay-for-services',
     keywords: ['tempo', 'wallet', 'mpp', 'payments'],
     category: 'Finance',
     claudeCategory: 'finance',
